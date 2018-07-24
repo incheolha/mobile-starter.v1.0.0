@@ -9,7 +9,7 @@
           <h4 ion-text color="light">Adam Lambert</h4>
         </a>
       </div>
-  
+
       <ion-list class="list-full-border">
         <button ion-item menuClose *ngFor="let page of pages" (click)="openPage(page)">
           <ion-icon item-left name="{{ page.icon }}"></ion-icon>
@@ -18,8 +18,8 @@
         </button>
       </ion-list>
     </ion-content>
-  
+
   </ion-menu>
-  
+
   <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
-  
+
