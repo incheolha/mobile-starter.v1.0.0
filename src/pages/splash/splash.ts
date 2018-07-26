@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { timers, timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs/observable/timer';
 /**
  * Generated class for the SplashPage page.
  *
@@ -27,9 +27,6 @@ export class SplashPage {
       this.viewController.dismiss();
     });
 
-    // setTimeout(()=> {
-    //     this.viewController.dismiss();
-    // }, 6000);
   }
 
 }
