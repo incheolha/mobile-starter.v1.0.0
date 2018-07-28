@@ -1,0 +1,33 @@
+
+<ion-content padding class="welcome">
+
+  <div class="align-bottom" padding>
+
+    <div padding-left padding-right>
+      <button ion-button icon-left block color="facebook" class="align-left">
+        <ion-icon name="logo-facebook"></ion-icon>
+        <span>Signin with Facebook</span>
+      </button>
+
+      <button ion-button icon-left block color="light" class="align-left">
+        <ion-icon name="logo-google"></ion-icon>
+        <span>Signin with Google</span>
+      </button>
+
+    <div margin-top>
+      <span ion-text color="light">Use Email</span>
+    </div>
+
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col no-padding>
+          <button ion-button block color="light" (click)="login()">Login</button>
+        </ion-col>
+        <ion-col no-padding padding-left>
+          <button ion-button block color="light" (click)="register()">Register</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  </div>
+</ion-content>
