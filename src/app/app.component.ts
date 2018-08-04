@@ -40,5 +40,9 @@ export class MyApp {
 
     this.nav.setRoot(page.component);
   }
+
+  openProfile() {
+    this.nav.push('UserProfilePage');
+  }
 }
 

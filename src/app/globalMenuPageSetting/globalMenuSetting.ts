@@ -1,6 +1,5 @@
 
 export const menuPages = [
-
   {
     title: 'Home',
     icon: 'ios-home-outline',
@@ -9,50 +8,50 @@ export const menuPages = [
   },
 
   {
-    title: 'UserProfile',
-    icon: 'ios-list-box-outline',
-    count: 0,
-    component: 'UserProfilePage'
+    title: 'Transcripts',
+    icon: 'ios-information-circle-outline',
+    count: 2,
+    component: 'TranscriptPage'
   },
 
   {
-    title: 'Order History',
-    icon: 'md-heart-outline',
+    title: 'Payment History',
+    icon: 'ios-cash-outline',
     count: 2,
     component: 'OrderHistoryPage'
   },
 
   {
     title: 'Shopping Cart',
-    icon: 'ios-timer-outline',
+    icon: 'ios-cart-outline',
     count: 0,
     component: 'ShoppingCartPage'
   },
 
   {
     title: 'Push History',
-    icon: 'ios-contact-outline',
+    icon: 'ios-notifications-outline',
     count: 0,
     component: 'PushHistoryPage'
   },
 
   {
     title: 'Contact',
-    icon: 'ios-cart-outline',
+    icon: 'ios-contact-outline',
     count: 1,
     component: 'ContactPage'
   },
 
   {
     title: 'Product Info',
-    icon: 'ios-settings-outline',
+    icon: 'ios-archive-outline',
     count: 0,
     component: 'ProductInfoPage'
   },
 
   {
     title: 'service info',
-    icon: 'log-out',
+    icon: 'ios-help-circle-outline',
     count: 0,
     component: 'ServiceInfoPage'
   }
