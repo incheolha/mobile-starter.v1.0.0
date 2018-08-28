@@ -14,7 +14,7 @@ import { timer } from 'rxjs/observable/timer';
 })
 export class SplashPage {
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public viewController: ViewController,
               public splashScreen: SplashScreen,
               public navParams: NavParams) {
@@ -22,7 +22,6 @@ export class SplashPage {
 
   ionViewDidEnter() {
     this.splashScreen.hide();
-
     timer(6000).subscribe(() => {
       this.viewController.dismiss();
     });
