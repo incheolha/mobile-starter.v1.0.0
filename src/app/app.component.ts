@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, ModalController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { timer } from 'rxjs/observable/timer';
 
 import { SplashPage } from '../pages/splash/splash';
 import { menuPages } from './globalMenuPageSetting/globalMenuSetting';
@@ -24,11 +22,10 @@ export class MyApp {
 
   constructor(platform: Platform,
               statusBar: StatusBar,
-              splashScreen: SplashScreen,
+             
               modalController: ModalController) {
 
       platform.ready().then(() => {
-
                   this.rootPage = 'WelcomePage';                   //lazy loading 기법 채용
                   statusBar.styleDefault();
                   let splash = modalController.create(SplashPage);
