@@ -32,7 +32,7 @@ export const menuPages = [
     title: 'Push History',
     icon: 'ios-notifications-outline',
     count: 0,
-    component: 'PushHistoryPage'
+    component: 'PushPage'
   },
 
   {
@@ -50,7 +50,7 @@ export const menuPages = [
   },
 
   {
-    title: 'service info',
+    title: 'Service info',
     icon: 'ios-help-circle-outline',
     count: 0,
     component: 'ServiceInfoPage'

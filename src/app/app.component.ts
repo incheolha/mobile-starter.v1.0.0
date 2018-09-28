@@ -22,7 +22,6 @@ export class MyApp {
 
   constructor(platform: Platform,
               statusBar: StatusBar,
-             
               modalController: ModalController) {
 
       platform.ready().then(() => {
@@ -35,7 +34,8 @@ export class MyApp {
 
   openPage(page: Page) {
 
-    this.nav.setRoot(page.component);
+    this.nav.push(page.component);
+    
   }
 
   openProfile() {

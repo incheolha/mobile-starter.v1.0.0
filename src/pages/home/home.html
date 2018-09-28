@@ -19,7 +19,19 @@
 
 </ion-header>
 
+<ion-content class="common-bg">
 
-<ion-content padding>
+      <ion-slides pager autoplay="2000">
+          <ion-slide *ngFor="let slide of slides">
+            <img src="{{ slide.src }}" alt="">
+          </ion-slide>
+      </ion-slides>
 
+      <ion-tabs>
+          <ion-tab tabIcon="ios-star-outline" tabTitle="All" [root]="tab1"></ion-tab>
+          <ion-tab tabIcon="leaf" tabTitle="Adv" [root]="tab2"></ion-tab>
+          <ion-tab tabIcon="flame" tabTitle="Inter" [root]="tab3"></ion-tab>
+          <ion-tab tabIcon="magnet" tabTitle="Basic" [root]="tab4"></ion-tab>
+          <ion-tab tabIcon="magnet" tabTitle="Beginner" [root]="tab5"></ion-tab>
+        </ion-tabs>
 </ion-content>

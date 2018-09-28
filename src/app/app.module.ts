@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -7,24 +8,45 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 
 import { SplashPage } from '../pages/splash/splash';
+import { AdvanceToeflListPage } from '../pages/toefl-list/advance-toefl-list/advance-toefl-list';
+import { InterToeflListPage } from '../pages/toefl-list/inter-toefl-list/inter-toefl-list';
+import { BasicToeflListPage } from '../pages/toefl-list/basic-toefl-list/basic-toefl-list';
+import { AllToeflListPage } from './../pages/toefl-list/all-toefl-list/all-toefl-list';
+import { BeginnerToeflListPage } from './../pages/toefl-list/beginner-toefl-list/beginner-toefl-list';
+import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
+import { HttpModule } from '@angular/http';
+
 @NgModule({
   declarations: [
     MyApp,
-    SplashPage
+    SplashPage,
+    AdvanceToeflListPage,
+    InterToeflListPage,
+    BasicToeflListPage,
+    BeginnerToeflListPage,
+    AllToeflListPage
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    SplashPage
+    SplashPage,
+    AdvanceToeflListPage,
+    InterToeflListPage,
+    BasicToeflListPage,
+    BeginnerToeflListPage,
+    AllToeflListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ToeflListServiceProvider
   ]
 })
 export class AppModule {}

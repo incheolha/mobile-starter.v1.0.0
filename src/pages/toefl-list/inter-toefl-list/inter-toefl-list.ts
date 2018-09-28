@@ -1,25 +1,24 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the OrderHistoryPage page.
+ * Generated class for the InterToeflListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
-  selector: 'page-order-history',
-  templateUrl: 'order-history.html',
+  selector: 'page-inter-toefl-list',
+  templateUrl: 'inter-toefl-list.html',
 })
-export class OrderHistoryPage {
+export class InterToeflListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderHistoryPage');
+    console.log('ionViewDidLoad InterToeflListPage');
   }
 
 }

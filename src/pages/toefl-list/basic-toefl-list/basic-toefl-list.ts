@@ -1,25 +1,24 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the PushPage page.
+ * Generated class for the BasicToeflListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
-  selector: 'page-push',
-  templateUrl: 'push.html',
+  selector: 'page-basic-toefl-list',
+  templateUrl: 'basic-toefl-list.html',
 })
-export class PushPage {
+export class BasicToeflListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PushPage');
+    console.log('ionViewDidLoad BasicToeflListPage');
   }
 
 }
