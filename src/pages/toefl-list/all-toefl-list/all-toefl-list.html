@@ -4,21 +4,20 @@
     <ion-title>All Toefl Lists</ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content no-padding>
+<ion-content #content>
   <ion-list no-lines>
-    <ion-list-header>
-      <h2>All Toefl Lists</h2>
-    </ion-list-header>
-    <button ion-item *ngFor="let toeflItem of allToefls" class="bk">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src={{toeflItem.toeflImage}}>
-        </ion-avatar>
-        <h2>{{toeflItem.toeflNo}} {{toeflItem.toeflLevel}}</h2>
-        <h3>{{toeflItem.toeflCreatedDate}} "| date"</h3>
-      </ion-item>
-
-    </button>
+      <ion-list-header text-center ion-affix [content]="content">
+          <h2>All Toefl Lists</h2>
+      </ion-list-header> 
+          <button ion-item *ngFor="let toeflItem of allToefls"> 
+              <ion-item>
+                <ion-avatar item-start>
+                  <img src={{toeflItem.toeflImage}}>
+                </ion-avatar>
+                <h2>{{toeflItem.toeflNo}}회차 단위: {{toeflItem.toeflLevel}}</h2>
+                <p>{{ toeflItem.toeflDesc | shorten:50 }}</p>
+                <h3>{{ toeflItem.toeflCreatedDate | date }}</h3>
+              </ion-item>
+            </button>
   </ion-list>
 </ion-content>

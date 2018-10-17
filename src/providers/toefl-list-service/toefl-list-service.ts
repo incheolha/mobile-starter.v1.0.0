@@ -16,7 +16,7 @@ export class ToeflListServiceProvider {
     console.log('Hello ToeflListServiceProvider Provider');
   }
   getAllToeflLists() {
-    return this.http.get('http://192.168.1.35:3000/showExam')
+    return this.http.get('http://localhost:3000/showExam')
                                                       .do((res: Response) => console.log(res))
                                                       .map((res: Response) => res.json())
                                                       .catch(this.catchError);

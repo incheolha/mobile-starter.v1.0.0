@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-
+import { IonAffixModule } from 'ion-affix';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,6 +15,7 @@ import { AllToeflListPage } from './../pages/toefl-list/all-toefl-list/all-toefl
 import { BeginnerToeflListPage } from './../pages/toefl-list/beginner-toefl-list/beginner-toefl-list';
 import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
 import { HttpModule } from '@angular/http';
+import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
 
 @NgModule({
   declarations: [
@@ -24,20 +25,23 @@ import { HttpModule } from '@angular/http';
     InterToeflListPage,
     BasicToeflListPage,
     BeginnerToeflListPage,
-    AllToeflListPage
+    AllToeflListPage,
+    ShortenPipe
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    IonAffixModule,
     IonicModule.forRoot(MyApp,
-      {iconMode: 'ios',
-        tabHiglight: true,
-        platforms: {
-          android: {
-            tabsPlacement: 'top'
-          }
-        }
-      })
+                              {iconMode: 'ios',
+                                tabHiglight: true,
+                                platforms: {
+                                  android: {
+                                    tabsPlacement: 'top'
+                                  }
+                                }
+                              })
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
