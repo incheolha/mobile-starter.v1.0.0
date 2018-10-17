@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Toefl } from '../../model/toefl.model';
 
-/**
- * Generated class for the BeginnerToeflListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-beginner-toefl-list',
@@ -14,11 +9,11 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class BeginnerToeflListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  beginnerToefls: Toefl[] = [];
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BeginnerToeflListPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+                 console.log(this.navParams.data);
+                 this.beginnerToefls = this.navParams.data;
   }
 
 }

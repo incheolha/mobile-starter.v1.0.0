@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Toefl } from '../../model/toefl.model';
 
-/**
- * Generated class for the InterToeflListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-inter-toefl-list',
@@ -14,11 +9,13 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class InterToeflListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  interToefls: Toefl[] = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams)
+  {
+                console.log( this.navParams.data );
+                this.interToefls = this.navParams.data;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InterToeflListPage');
-  }
 
 }

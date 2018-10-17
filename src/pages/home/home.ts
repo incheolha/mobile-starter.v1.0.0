@@ -1,5 +1,5 @@
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
@@ -18,9 +18,9 @@ import { AdvanceToeflListPage } from './../toefl-list/advance-toefl-list/advance
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage implements OnInit, OnDestroy {
+export class HomePage {
 
-  toefls: Toefl[] = [];
+  allToefls: Toefl[] = [];
   beginnerToefls: Toefl[] = [];
   basicToefls: Toefl[] = [];
   intermediateToefls: Toefl[] = [];
@@ -40,27 +40,19 @@ export class HomePage implements OnInit, OnDestroy {
     tab5 = InterToeflListPage;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private toeflExamService: ToeflListServiceProvider) {
+              public navParams: NavParams) {
 
+                console.log( this.navParams.data.allToefl );
+                console.log( this.navParams.data.basicToefl );
+                console.log( this.navParams.data.beginnerToefl );
+                console.log( this.navParams.data.interToefl );
+                console.log( this.navParams.data.advToefl );
+
+                this.allToefls = this.navParams.data.allToefl;
+                this.beginnerToefls = this.navParams.data.beginnerToefl;
+                this.basicToefls = this.navParams.data.basicToefl;
+                this.intermediateToefls = this.navParams.data.interToefl;
+                this.advancedToefls = this.navParams.data.advToefl;
               }
-
-
-  ngOnInit() {
-
-    this.toeflListSubscription = this.toeflExamService.toeflListChanged
-                                                      .subscribe( (toefls: Toefl[]) => {
-                                                        this.toefls = toefls;
-
-                                                        console.log( this.toefls );
-                                                      } );
-    this.toefls = this.toeflExamService.getAllToeflLists();
-                  console.log( this.toefls);
-
-  }
-
-  ngOnDestroy() {
-    this.toeflListSubscription.unsubscribe();
-  }
 
 }

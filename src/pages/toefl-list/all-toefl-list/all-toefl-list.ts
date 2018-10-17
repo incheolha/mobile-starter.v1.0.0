@@ -1,6 +1,6 @@
+import { Toefl } from './../../model/toefl.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
 
 @Component({
   selector: 'page-all-toefl-list',
@@ -8,11 +8,17 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class AllToeflListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  allToefls: Toefl[] = [];
+
+  
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams) {
+
+              console.log(this.navParams.data);
+              this.allToefls = this.navParams.data;
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AllToeflListPage');
-  }
+
 
 }
