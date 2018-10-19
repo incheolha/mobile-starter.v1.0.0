@@ -41,7 +41,7 @@ import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
                                   }
                                 }
                               })
-    
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [

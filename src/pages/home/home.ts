@@ -27,11 +27,6 @@ export class HomePage {
   advancedToefls: Toefl[] = [];
   toeflListSubscription: Subscription;
 
-  public slides = [
-                      { src: 'assets/imgs/slide_1.jpg'},
-                      { src: 'assets/imgs/slide_2.jpg'},
-                      { src: 'assets/imgs/slide_3.jpg'}
-                   ];
 
     tab1 = AllToeflListPage;
     tab2 = AdvanceToeflListPage;
