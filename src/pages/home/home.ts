@@ -20,13 +20,19 @@ import { AdvanceToeflListPage } from './../toefl-list/advance-toefl-list/advance
 })
 export class HomePage {
 
-  allToefls: Toefl[] = [];
-  beginnerToefls: Toefl[] = [];
-  basicToefls: Toefl[] = [];
-  intermediateToefls: Toefl[] = [];
-  advancedToefls: Toefl[] = [];
+  allToefls: Toefl[];
+  beginnerToefls: Toefl[];
+  basicToefls: Toefl[];
+  intermediateToefls: Toefl[];
+  advancedToefls: Toefl[];
   toeflListSubscription: Subscription;
 
+  allToeflCheck = false;
+  beginnerToeflCheck = false;
+  basicToeflCheck = false;
+  interToeflCheck = false;
+  advToeflCheck = false;
+  
 
     tab1 = AllToeflListPage;
     tab2 = AdvanceToeflListPage;
@@ -48,6 +54,24 @@ export class HomePage {
                 this.basicToefls = this.navParams.data.basicToefl;
                 this.intermediateToefls = this.navParams.data.interToefl;
                 this.advancedToefls = this.navParams.data.advToefl;
-              }
+
+          
+            if (this.allToefls !== []) {
+              
+            };
+            if (this.beginnerToefls !== []) {
+                this.beginnerToefls = null;
+            }
+               
+            if (this.basicToefls !== []) {
+              this.basicToefls = null;
+            }
+            if (this.intermediateToefls !== []) {
+              this.intermediateToefls = null;
+            }
+            if (this.advancedToefls !== []) {
+              this.advancedToefls = null;
+            }
+          }
 
 }

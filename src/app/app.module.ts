@@ -56,7 +56,6 @@ import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
   providers: [
     StatusBar,
     SplashScreen,
-
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ToeflListServiceProvider
   ]

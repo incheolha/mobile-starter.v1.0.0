@@ -5,7 +5,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { Toefl } from '../../pages/model/toefl.model';
-
+import { globalConstants } from '../../app/globalConstantsSetting/globalConstants';
 
 @Injectable()
 export class ToeflListServiceProvider {
@@ -16,7 +16,7 @@ export class ToeflListServiceProvider {
     console.log('Hello ToeflListServiceProvider Provider');
   }
   getAllToeflLists() {
-    return this.http.get('http://localhost:3000/showExam')
+    return this.http.get(globalConstants.globalURL +  '/showExam')
                                                       .do((res: Response) => console.log(res))
                                                       .map((res: Response) => res.json())
                                                       .catch(this.catchError);

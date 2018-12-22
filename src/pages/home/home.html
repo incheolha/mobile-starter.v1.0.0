@@ -1,8 +1,18 @@
 
       <ion-tabs>
-          <ion-tab tabIcon="ios-star-outline" tabTitle="All" [root]="tab1" [rootParams]="this.allToefls"></ion-tab>
-          <ion-tab tabIcon="leaf" tabTitle="Adv" [root]="tab2" [rootParams]="this.advancedToefls"></ion-tab>
-          <ion-tab tabIcon="flame" tabTitle="Inter" [root]="tab3" [rootParams]="this.intermediateToefls"></ion-tab>
-          <ion-tab tabIcon="magnet" tabTitle="Basic" [root]="tab4" [rootParams]="this.basicToefls"></ion-tab>
-          <ion-tab tabIcon="magnet" tabTitle="Beginner" [root]="tab5" [rootParams]="this.beginnerToefls"></ion-tab>
+          <div *ngIf="allToefls">
+                <ion-tab tabIcon="ios-star-outline" tabTitle="All" [root]="tab1" [rootParams]="this.allToefls"></ion-tab>
+          </div>
+          <div *ngIf="advancedToefls">
+                <ion-tab tabIcon="leaf" tabTitle="Adv" [root]="tab2" [rootParams]="this.advancedToefls"></ion-tab>
+          </div>
+          <div *ngIf="intermediateToefls">
+                <ion-tab tabIcon="flame" tabTitle="Inter" [root]="tab3" [rootParams]="this.intermediateToefls"></ion-tab>
+          </div>
+          <div *ngIf="basicToefls">
+                <ion-tab tabIcon="magnet" tabTitle="Basic" [root]="tab4" [rootParams]="this.basicToefls"></ion-tab>
+          </div>
+          <div *ngIf="beginnerToefls">
+                <ion-tab tabIcon="magnet" tabTitle="Beginner" [root]="tab5" [rootParams]="this.beginnerToefls"></ion-tab>
+          </div>
       </ion-tabs>

@@ -1,18 +1,36 @@
-<!--
-  Generated template for the AdvanceToeflListPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>advance-toefl-list</ion-title>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Advanced Toefl Lists</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToSearch()">
+        <ion-icon name="ios-notifications-outline" style="zoom:1.5;"></ion-icon>
+      </button>
+      <button ion-button (click)="goToCart()">
+        <ion-icon name="ios-cart-outline" style="zoom:1.5;"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
+  <ion-slides pager autoplay="2000">
+    <ion-slide *ngFor="let slide of slides">
+      <img src="{{ slide.src }}" alt="">
+    </ion-slide>
+  </ion-slides>
 </ion-header>
-
-
-<ion-content padding>
-
+<ion-content>
+  <ion-list no-lines padding>
+          <button ion-item *ngFor="let toeflItem of this.advToefl">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img src={{toeflItem.toeflImage}}>
+                </ion-avatar>
+                <h2>{{toeflItem.toeflNo}}회차 단위: {{toeflItem.toeflLevel}}</h2>
+                <p>{{ toeflItem.toeflDesc | shorten:50 }}</p>
+                <h3>{{ toeflItem.toeflCreatedDate | date }}</h3>
+              </ion-item>
+            </button>
+  </ion-list>
 </ion-content>
