@@ -16,13 +16,12 @@ export class ToeflListServiceProvider {
     console.log('Hello ToeflListServiceProvider Provider');
   }
   getAllToeflLists() {
-    return this.http.get(globalConstants.globalURL +  '/showExam')
+    return this.http.get(globalConstants.httpURL +  '/showExam')
                                                       .do((res: Response) => console.log(res))
                                                       .map((res: Response) => res.json())
                                                       .catch(this.catchError);
 
   }
-
 catchError( error: Response | any) {
     console.log(error);
     return Observable.throw( error.json().error || 'Server Error');

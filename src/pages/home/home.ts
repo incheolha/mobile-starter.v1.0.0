@@ -1,10 +1,8 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
 import { Toefl } from '../model/toefl.model';
-import { Subscription } from 'rxjs/Subscription';
 
 import { AllToeflListPage } from '../toefl-list/all-toefl-list/all-toefl-list';
 import { InterToeflListPage } from './../toefl-list/inter-toefl-list/inter-toefl-list';
@@ -18,60 +16,30 @@ import { AdvanceToeflListPage } from './../toefl-list/advance-toefl-list/advance
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
-  allToefls: Toefl[];
-  beginnerToefls: Toefl[];
-  basicToefls: Toefl[];
-  intermediateToefls: Toefl[];
-  advancedToefls: Toefl[];
-  toeflListSubscription: Subscription;
+  allToefls: Toefl[] = [];
+  beginnerToefls: Toefl[] = [];
+  basicToefls: Toefl[] = [];
+  intermediateToefls: Toefl[] = [];
+  advancedToefls: Toefl[] = [];
 
-  allToeflCheck = false;
-  beginnerToeflCheck = false;
-  basicToeflCheck = false;
-  interToeflCheck = false;
-  advToeflCheck = false;
-  
 
     tab1 = AllToeflListPage;
     tab2 = AdvanceToeflListPage;
-    tab3 = BasicToeflListPage;
-    tab4 = BeginnerToeflListPage;
-    tab5 = InterToeflListPage;
+    tab3 = InterToeflListPage;
+    tab4 = BasicToeflListPage;
+    tab5 = BeginnerToeflListPage;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams) {
+              public navParams: NavParams) {}
 
-                console.log( this.navParams.data.allToefl );
-                console.log( this.navParams.data.basicToefl );
-                console.log( this.navParams.data.beginnerToefl );
-                console.log( this.navParams.data.interToefl );
-                console.log( this.navParams.data.advToefl );
-
-                this.allToefls = this.navParams.data.allToefl;
-                this.beginnerToefls = this.navParams.data.beginnerToefl;
-                this.basicToefls = this.navParams.data.basicToefl;
-                this.intermediateToefls = this.navParams.data.interToefl;
-                this.advancedToefls = this.navParams.data.advToefl;
-
-          
-            if (this.allToefls !== []) {
-              
-            };
-            if (this.beginnerToefls !== []) {
-                this.beginnerToefls = null;
-            }
-               
-            if (this.basicToefls !== []) {
-              this.basicToefls = null;
-            }
-            if (this.intermediateToefls !== []) {
-              this.intermediateToefls = null;
-            }
-            if (this.advancedToefls !== []) {
-              this.advancedToefls = null;
-            }
-          }
+  ngOnInit() {
+    this.allToefls = this.navParams.data.allToefls;
+    this.advancedToefls = this.navParams.data.advToeflLists;
+    this.intermediateToefls = this.navParams.data.interToeflLists;
+    this.basicToefls = this.navParams.data.basicToeflLists;
+    this.beginnerToefls = this.navParams.data.beginnerToeflLists;
+  }
 
 }

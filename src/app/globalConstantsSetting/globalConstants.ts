@@ -1,5 +1,5 @@
 
 export const globalConstants =
     {
-        globalURL: 'https://examsimv100.herokuapp.com'
+        httpURL: 'https://examsimv100.herokuapp.com'
     }

@@ -1,0 +1,60 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="login">
+  <ion-grid class="header">
+
+    <ion-row>
+      <ion-col col>
+        <p (click)="doLogin()">Skip</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-avatar>
+          <img src="assets/imgs/logo.png">
+      </ion-avatar>
+
+    </ion-row>
+    <ion-row>
+      <ion-col>
+
+        <form>
+          <ion-item>
+            <ion-label><ion-icon name="ios-mail-outline"></ion-icon></ion-label>
+            <ion-input type="text" placeholder="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label><ion-icon name="ios-lock-outline"></ion-icon></ion-label>
+            <ion-input type="password" placeholder="Password"></ion-input>
+          </ion-item>
+          <button ion-button block (click)="doLogin()">Log In</button>
+        </form>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col>
+        <a href="#"> Forget Password?</a>
+      </ion-col>
+    </ion-row>
+    <br><br>
+
+    <ion-row class="socialLogin">
+      <ion-col col>
+        <ion-icon name="logo-facebook" style="color:#307bbe"></ion-icon> &nbsp;&nbsp;&nbsp;
+        <ion-icon name="logo-google" stype="color:#00bff3"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer no-border>
+  <p>Don't have an account? <a color="primary" (tap)=doRegister()>Sign Up</a></p>
+</ion-footer>

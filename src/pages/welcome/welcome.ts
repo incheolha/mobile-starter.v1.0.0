@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
+import { LoginPage } from '../auth/login/login';
 import { Toefl } from '../model/toefl.model';
 
 @IonicPage()
@@ -24,30 +25,12 @@ export class WelcomePage {
                   console.log( data.toefls );
                   this.toeflLists = data.toefls;
 
-                  if ( this.toeflLists.length !== 0 ) {
-                    for ( let toeflItem of this.toeflLists ) {
-                      if (toeflItem.toeflLevel == 'Beginner') {
-                            this.beginnerToeflLists.push(toeflItem);
-                      } else if (toeflItem. toeflLevel == 'Basic') {
-                            this.basicToeflLists.push(toeflItem)
-                      } else if (toeflItem.toeflLevel == 'InterMediate') {
-                            this.interToeflLists.push(toeflItem)
-                      } else if (toeflItem.toeflLevel == 'Advanced') {
-                            this.advToeflLists.push(toeflItem)
-                      }
-                    }
-                  }
-                
                 })
   }
 
   login() {
 
-    this.navCtrl.setRoot('HomePage', {allToefl: this.toeflLists,
-                                      basicToefl: this.basicToeflLists,
-                                      beginnerToefl: this.beginnerToeflLists,
-                                      interToefl: this.interToeflLists,
-                                      advToefl: this.advToeflLists});
+    this.navCtrl.push('LoginPage', {allToefl: this.toeflLists});
   }
 
   register() {
