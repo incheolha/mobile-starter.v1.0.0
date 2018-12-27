@@ -38,6 +38,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
 
     this.loginForm = this.fb.group( {
+                    
                       email: ['', Validators.required],
                       password: ['', [Validators.required,
                                       Validators.minLength(6)]]
@@ -91,7 +92,7 @@ export class LoginPage implements OnInit {
   }
 
   doRegister() {
-
+      this.navCtrl.push('SignUpPage',{allToefls: this.toeflLists});
   }
 
   moveHomePage() {

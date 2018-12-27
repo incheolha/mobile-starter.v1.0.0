@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
-import { LoginPage } from '../auth/login/login';
 import { Toefl } from '../model/toefl.model';
 import { Subscription } from 'rxjs/Subscription';
 @IonicPage()
@@ -32,12 +31,11 @@ export class WelcomePage implements OnDestroy {
   }
 
   login() {
-
     this.navCtrl.push('LoginPage', {allToefl: this.toeflLists});
   }
 
   register() {
-    this.navCtrl.setRoot('HomePage', this.toeflLists);
+    this.navCtrl.push('SignUpPage', {allToefl: this.toeflLists});
   }
 
   ngOnDestroy() {

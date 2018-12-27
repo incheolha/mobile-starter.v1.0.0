@@ -6,6 +6,7 @@ import { globalConstants } from '../../app/globalConstantsSetting/globalConstant
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import { Toefl } from '../../pages/model/toefl.model';
+import { stringify } from '@angular/compiler/src/util';
 
 
 @Injectable()
@@ -27,6 +28,13 @@ authChangeListener() {
   return this.authChange.asObservable();
 }
 
+doSignUp(user: User) {
+  return this.http.post< { message: string,
+                           token: string,
+                           usr: User }>
+                      (this.urlConfig + 'user/signup', user)
+                                  
+}
 
 login(user: User) {
 
