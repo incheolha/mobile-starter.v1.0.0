@@ -5,6 +5,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MyApp } from './app.component';
 
 import { SplashPage } from '../pages/splash/splash';
@@ -14,7 +16,8 @@ import { BasicToeflListPage } from '../pages/toefl-list/basic-toefl-list/basic-t
 import { AllToeflListPage } from './../pages/toefl-list/all-toefl-list/all-toefl-list';
 import { BeginnerToeflListPage } from './../pages/toefl-list/beginner-toefl-list/beginner-toefl-list';
 import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
-import { HttpModule } from '@angular/http';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { HttpClientModule } from '@angular/common/http';
 import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
 
 @NgModule({
@@ -30,8 +33,11 @@ import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+
+    HttpClientModule,
     IonAffixModule,
+    FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(MyApp,
                               {iconMode: 'ios',
                                 tabHiglight: true,
@@ -57,7 +63,9 @@ import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ToeflListServiceProvider
+    ToeflListServiceProvider,
+    AuthServiceProvider
+
   ]
 })
 export class AppModule {}

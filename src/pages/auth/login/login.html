@@ -11,28 +11,37 @@
 
     <ion-row>
       <ion-col col>
-        <p (click)="doLogin()">Skip</p>
+        <p (click)="doSkipLogin()">Skip</p>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-avatar>
           <img src="assets/imgs/logo.png">
-      </ion-avatar>
-
     </ion-row>
     <ion-row>
       <ion-col>
 
-        <form>
+        <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
           <ion-item>
             <ion-label><ion-icon name="ios-mail-outline"></ion-icon></ion-label>
-            <ion-input type="text" placeholder="email"></ion-input>
+            <ion-input
+                      type="email"
+                      formControlName="email"
+                      id="email"
+                      placeholder="email">
+            </ion-input>
           </ion-item>
           <ion-item>
             <ion-label><ion-icon name="ios-lock-outline"></ion-icon></ion-label>
-            <ion-input type="password" placeholder="Password"></ion-input>
+            <ion-input
+                        type="password"
+                        formControlName="password"
+                        id="password"
+                        placeholder="Password"></ion-input>
           </ion-item>
-          <button ion-button block (click)="doLogin()">Log In</button>
+          <button ion-button
+                  block
+                  type="submit">Log In
+          </button>
         </form>
 
       </ion-col>
