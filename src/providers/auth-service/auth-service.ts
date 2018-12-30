@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import { User } from '../../pages/model/auth-model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { globalConstants } from '../../app/globalConstantsSetting/globalConstants';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import { Toefl } from '../../pages/model/toefl.model';
-import { stringify } from '@angular/compiler/src/util';
 
 
 @Injectable()
@@ -20,6 +18,7 @@ export class AuthServiceProvider {
   isAuthenticated: boolean;
 
   authChange = new Subject<boolean>();
+  loginedUser = new Subject<User>();
 
 constructor( private http: HttpClient ) {}
 
@@ -27,13 +26,16 @@ constructor( private http: HttpClient ) {}
 authChangeListener() {
   return this.authChange.asObservable();
 }
+loginedUserListener() {
+  return this.loginedUser.asObservable();
+}
 
-doSignUp(user: User) {
+signUp(user: User) {
   return this.http.post< { message: string,
                            token: string,
                            usr: User }>
-                      (this.urlConfig + 'user/signup', user)
-                                  
+                      (this.urlConfig + '/user/signup', user)
+
 }
 
 login(user: User) {
@@ -45,8 +47,4 @@ login(user: User) {
 
 }
 
-authSucess(authStatus: boolean) {
-  return this.authChange.next(authStatus);
-
-}
 }

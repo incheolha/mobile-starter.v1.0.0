@@ -1,4 +1,4 @@
-import { Reading } from './reading.model';
+
 import { ImageSettingTime } from './image.model';
 export class Toefl {
 

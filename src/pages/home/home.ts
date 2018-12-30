@@ -1,5 +1,5 @@
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Toefl } from '../model/toefl.model';
@@ -11,6 +11,7 @@ import { BasicToeflListPage } from './../toefl-list/basic-toefl-list/basic-toefl
 import { AdvanceToeflListPage } from './../toefl-list/advance-toefl-list/advance-toefl-list';
 
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { User } from '../model/auth-model/user.model';
 
 
 
@@ -22,6 +23,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class HomePage implements OnInit {
 
   isAuth: boolean;
+  currentLoginedUser: User;
 
   allToefls: Toefl[] = [];
   beginnerToefls: Toefl[] = [];
@@ -44,16 +46,26 @@ export class HomePage implements OnInit {
 
     if (this.authService.isAuthenticated) {
       console.log(this.authService.isAuthenticated);
+      this.currentLoginedUser = this.navParams.data.currentLoginedUser,
+      console.log(this.currentLoginedUser);
     } else {
       console.log(this.authService.isAuthenticated);
     }
     this.allToefls = this.navParams.data.allToefls;
-    console.log(this.allToefls);
-    this.advancedToefls = this.navParams.data.advToeflLists;
-    this.intermediateToefls = this.navParams.data.interToeflLists;
-    this.basicToefls = this.navParams.data.basicToeflLists;
-    this.beginnerToefls = this.navParams.data.beginnerToeflLists;
 
+    if ( this.allToefls.length !== 0 ) {
+      for ( let toeflItem of this.allToefls ) {
+        if (toeflItem.toeflLevel === 'Beginner') {
+              this.beginnerToefls.push(toeflItem);
+        } else if (toeflItem. toeflLevel === 'Basic') {
+              this.basicToefls.push(toeflItem)
+        } else if (toeflItem.toeflLevel === 'InterMediate') {
+              this.intermediateToefls.push(toeflItem)
+        } else if (toeflItem.toeflLevel === 'Advanced') {
+              this.advancedToefls.push(toeflItem)
+        }
+      }
+    }
 
   }
 

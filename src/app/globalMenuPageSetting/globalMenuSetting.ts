@@ -6,18 +6,23 @@ export const menuPages = [
     count: 0,
     component: 'HomePage'
   },
-
+  {
+    title: 'Logout',
+    icon: 'ios-log-out-outline',
+    count: 0,
+    component: 'LogoutPage'
+  },
   {
     title: 'Transcripts',
     icon: 'ios-information-circle-outline',
-    count: 2,
+    count: 0,
     component: 'TranscriptPage'
   },
 
   {
     title: 'Payment History',
     icon: 'ios-cash-outline',
-    count: 2,
+    count: 0,
     component: 'OrderHistoryPage'
   },
 
@@ -38,7 +43,7 @@ export const menuPages = [
   {
     title: 'Contact',
     icon: 'ios-contact-outline',
-    count: 1,
+    count: 0,
     component: 'ContactPage'
   },
 

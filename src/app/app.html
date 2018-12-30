@@ -1,6 +1,5 @@
 
 <ion-menu [content]="content" class="no-scroll">
-
     <ion-content class="menu-left">
       <!-- User profile -->
       <div class="menu-left">
@@ -10,34 +9,89 @@
                   <ion-avatar item-start >
                       <img src="assets/imgs/logo.png">
                   </ion-avatar>
-                  <p>Tony Ha</p>
-                  <p>this is a sample profile</p>
-                  
-                      <ion-icon 
-                                item-right 
-                                name="ios-list-box-outline"
-                                (click)="openProfile()"></ion-icon>
-                
+                  <p>{{ currentUserName }}</p>
+                  <p>{{ currentUserEmail }}</p>
+                  <ion-icon *ngIf="currentAuthStatus"
+                            item-right
+                            name="ios-list-box-outline"
+                            (click)="openProfile()">
+                  </ion-icon>
               </ion-item>
 
           </ion-row>
           <ion-row >
               <div>
-                <img src="assets/imgs/head-bg.png">      
+                <img src="assets/imgs/head-bg.png">
               </div>
             </ion-row>
         </a>
       </div>
 
-      <ion-list class="list-no-border">
-        <button ion-item menuClose *ngFor="let page of pages" (click)="openPage(page)">
-          <ion-icon item-left name="{{ page.icon }}"></ion-icon>
-          {{ page.title }}
-          <ion-badge color="danger" item-right *ngIf="page.count">{{ page.count }}</ion-badge>
+      <ion-list class="list-full-border list-ios">
+        <button ion-item menuClose (click)="goBackHome()">
+          <ion-icon item-left name="ios-home-outline"></ion-icon>
+           Home
+          <ion-badge color="danger" item-right></ion-badge>
         </button>
+
+        <div *ngIf="!currentAuthStatus">
+          <button ion-item menuClose (click)="doLogin()">
+            <ion-icon item-left name="ios-log-out-outline"></ion-icon>
+               Login
+            <ion-badge color="danger" item-right></ion-badge>
+          </button>
+            <button ion-item menuClose (click)="doSignUp()">
+              <ion-icon item-left name="ios-log-out-outline"></ion-icon>
+               Signup
+              <ion-badge color="danger" item-right></ion-badge>
+          </button>
+        </div>
+        <div *ngIf="currentAuthStatus">
+          <button ion-item menuClose (click)="doLogout()">
+            <ion-icon item-left name="ios-log-out-outline"></ion-icon>
+            LogOut
+            <ion-badge color="danger" item-right></ion-badge>
+        </button>
+        </div>
+
+            <button [disabled]="!currentAuthStatus" ion-item menuClose (click)="doTranscript()">
+              <ion-icon item-left name="ios-information-circle-outline"></ion-icon>
+              Transcripts
+              <ion-badge color="danger" item-right></ion-badge>
+            </button>
+            <button [disabled]="!currentAuthStatus" ion-item menuClose (click)="doOrderHistroy()">
+                <ion-icon item-left name="ios-cash-outline"></ion-icon>
+                Order History
+                <ion-badge color="danger" item-right></ion-badge>
+              </button>
+            <button [disabled]="!currentAuthStatus" ion-item menuClose (click)="doShoppingCart()">
+                <ion-icon item-left name="ios-cart-outline"></ion-icon>
+                ShoppingCart
+                <ion-badge color="danger" item-right></ion-badge>
+            </button>
+            <button [disabled]="!currentAuthStatus" ion-item menuClose (click)="doPush()">
+                <ion-icon item-left name="ios-notifications-outline"></ion-icon>
+                 Messages
+                <ion-badge color="danger" item-right></ion-badge>
+            </button>
+            <button ion-item menuClose (click)="doContact()">
+                <ion-icon item-left name="ios-contact-outline"></ion-icon>
+                Contact
+                <ion-badge color="danger" item-right></ion-badge>
+            </button>
+            <button ion-item menuClose (click)="doProduct()">
+                <ion-icon item-left name="ios-archive-outline"></ion-icon>
+                Production Info
+                <ion-badge color="danger" item-right></ion-badge>
+            </button>
+            <button ion-item menuClose (click)="doHelp()">
+                <ion-icon item-left name="ios-help-circle-outline"></ion-icon>
+                HelpDesk
+                <ion-badge color="danger" item-right></ion-badge>
+            </button>
+
       </ion-list>
     </ion-content>
-
 </ion-menu>
 
   <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

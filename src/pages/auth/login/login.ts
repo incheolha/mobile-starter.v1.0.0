@@ -5,12 +5,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../../model/auth-model/user.model';
 import { AuthServiceProvider } from '../../../providers/auth-service/auth-service';
 
-
-/*
-
-
-*/
-
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -38,32 +32,18 @@ export class LoginPage implements OnInit {
   ngOnInit() {
 
     this.loginForm = this.fb.group( {
-                    
-                      email: ['', Validators.required],
-                      password: ['', [Validators.required,
-                                      Validators.minLength(6)]]
+                                    email: ['', Validators.required],
+                                    password: ['', [Validators.required,
+                                                    Validators.minLength(6)]]
                       });
 
-    this.toeflLists = this.navParams.data.allToefl;
-
-    if ( this.toeflLists.length !== 0 ) {
-      for ( let toeflItem of this.toeflLists ) {
-        if (toeflItem.toeflLevel === 'Beginner') {
-              this.beginnerToeflLists.push(toeflItem);
-        } else if (toeflItem. toeflLevel === 'Basic') {
-              this.basicToeflLists.push(toeflItem)
-        } else if (toeflItem.toeflLevel === 'InterMediate') {
-              this.interToeflLists.push(toeflItem)
-        } else if (toeflItem.toeflLevel === 'Advanced') {
-              this.advToeflLists.push(toeflItem)
-        }
-      }
-    }
+    this.toeflLists = this.navParams.data.originalToefls;
 
   }
 
   doSkipLogin() {
     this.authService.isAuthenticated = false;
+    this.authService.authChange.next(false);
     this.moveHomePage();
   }
 
@@ -75,35 +55,35 @@ export class LoginPage implements OnInit {
                             this.loginForm.value.password);
 
        this.authService.login(user)
-       .subscribe( (result: any) => {
-                    console.log( result )
-                    this.postedUser = result.user;
-                    localStorage.setItem('token', result.token);
-                    localStorage.setItem('userName', result.user.name);
-                    this.authService.isAuthenticated = true;
-                    this.moveHomePage()
-                  },
-        error => {
-                  console.log('에러 메세지', error)
-                  this.authService.isAuthenticated = false;
-                  this.loginForm.reset();
-                }
+                                   .subscribe( (result: any) => {
+                                                console.log( result )
+                                                this.postedUser = result.user;
+                                                localStorage.setItem('token', result.token);
+                                                localStorage.setItem('userName', result.user.name);
+                                                this.authService.isAuthenticated = true;   //이놈은 SignUpPage영향을 주고
+                                                this.authService.authChange.next(true);    //요놈은 sidemenu에 있는 인증정보에 영향을 줌
+                                                this.authService.loginedUser.next(this.postedUser); //요놈은 sidemenu에 user정보를 제공함
+
+                                                this.moveHomePage()
+                                              },
+                                    error => {
+                                              console.log('에러 메세지', error)
+                                              this.authService.isAuthenticated = false;
+                                              this.loginForm.reset();
+                                            }
             )
   }
 
   doRegister() {
-      this.navCtrl.push('SignUpPage',{allToefls: this.toeflLists});
+    console.log('tap was click');
+      this.navCtrl.push('SignUpPage',{originalToefls: this.toeflLists});
   }
 
   moveHomePage() {
-
-     console.log('사용자 정보', this.postedUser);
-     this.navCtrl.setRoot('HomePage', {allToefls: this.toeflLists,
-      beginnerToeflLists: this.beginnerToeflLists,
-      basicToeflLists: this.basicToeflLists,
-      interToeflLists: this.interToeflLists,
-      advToeflLists: this.advToeflLists});
+                   console.log('사용자 정보', this.postedUser);
+                   this.navCtrl.setRoot('HomePage', {currentLoginedUser: this.postedUser,
+                                                     allToefls: this.toeflLists
+                                                    });
   }
-
 
 }

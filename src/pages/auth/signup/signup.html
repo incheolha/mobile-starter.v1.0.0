@@ -1,56 +1,73 @@
-<ion-header no-border>
-  <ion-navbar no-border>
-    <ion-title>SIGN UP</ion-title>
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Sign Up</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content class="login">
-	<ion-grid class="header">
-	  <ion-row>
-	  	<img src="assets/imgs/logo.png">
-	  </ion-row>
-	  <ion-row>
-      <ion-col width-90 id="login-box">
-        <form [formGroup]="signUpForm" (ngSubmit)="doSignUp()">
-          <ion-list>
-          	<ion-item>
-							<ion-label><ion-icon name="ios-person-outline"></ion-icon></ion-label>
-              <ion-input 
-                        type="text" 
-                        formControlName="name"
-                        id="name"
-                        placeholder="Full Name">
-              </ion-input>
-					  </ion-item>
-					  <ion-item>
-							<ion-label><ion-icon name="ios-mail-outline"></ion-icon></ion-label>
-              <ion-input 
-                        type="email"
-                        formControlName="email"
-                        id="email"
-                        placeholder="Email">
-              </ion-input>
-					  </ion-item>
-					  <ion-item>
-					    <ion-label><ion-icon name="ios-lock-outline"></ion-icon></ion-label>
-              <ion-input type="password" 
-                          formControlName="password"
-                          id="password"
-                          placeholder="Password"></ion-input>
-					  </ion-item>
-					</ion-list>
-          <button 
-                  ion-button 
+
+<ion-content padding class="Sign Up">
+  <ion-grid class="header">
+
+    <ion-row>
+      <ion-col col>
+        <p (click)="doSkipLogin()">Skip</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+          <img src="assets/imgs/logo.png">
+    </ion-row>
+    <ion-row>
+      <ion-col>
+
+        <form [formGroup]="signForm" (ngSubmit)="doRegister()">
+            <ion-item>
+                <ion-label><ion-icon name="ios-person-outline"></ion-icon></ion-label>
+                <ion-input
+                          type="text"
+                          formControlName="name"
+                          id="name"
+                          placeholder="name">
+                </ion-input>
+              </ion-item>
+          <ion-item>
+            <ion-label><ion-icon name="ios-mail-outline"></ion-icon></ion-label>
+            <ion-input
+                      type="email"
+                      formControlName="email"
+                      id="email"
+                      placeholder="email">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label><ion-icon name="ios-lock-outline"></ion-icon></ion-label>
+            <ion-input
+                        type="password"
+                        formControlName="password"
+                        id="password"
+                        placeholder="Password"></ion-input>
+          </ion-item>
+          <button ion-button
                   block
-                  type="submit">Sign Up Now</button>
+                  color="secondary"
+                  type="submit">Sign Up
+          </button>
         </form>
+
       </ion-col>
     </ion-row>
 
-    <ion-row class="footer">
-    	<ion-col>
-    		<p>Already have an account? <a color="primary" (click)=doLogin()>Sign In</a></p>
-    	</ion-col>
+    <ion-row>
+      <ion-col col>
+        <a href="#"> Forget Password?</a>
+      </ion-col>
     </ion-row>
-	</ion-grid>
+    <br><br>
+
+  </ion-grid>
+
 </ion-content>
+
+<ion-footer no-border>
+  <p>Don't have an account? <a color="secondary" (tap)=doLogin()>Sign Up</a></p>
+</ion-footer>
