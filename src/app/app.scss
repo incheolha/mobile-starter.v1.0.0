@@ -280,3 +280,11 @@
     top: 0;
     left: 0;
   }
+
+  .customToast {
+     .toast-message 
+      {
+        text-align: center;
+        background: color($colors, danger) } 
+}
+  

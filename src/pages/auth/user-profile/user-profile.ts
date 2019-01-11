@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../model/auth-model/user.model';
 
+
 @IonicPage()
 @Component({
   selector: 'page-user-profile',
@@ -20,5 +21,10 @@ export class UserProfilePage {
                 console.log(this.currentUser);
                 console.log(this.currentAuthStatus);
               }
+
+
+  wishList() {
+  	this.navCtrl.push('WishListPage', {direction: 'forward'});
+  }
 
 }

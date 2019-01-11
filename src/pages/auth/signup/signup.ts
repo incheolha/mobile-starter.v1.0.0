@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Toefl } from '../../model/toefl.model';
+import { Toefl } from '../../model/toefl-model/toefl.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../../model/auth-model/user.model';
 import { AuthServiceProvider } from '../../../providers/auth-service/auth-service';

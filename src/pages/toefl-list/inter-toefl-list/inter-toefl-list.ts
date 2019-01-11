@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { Toefl } from '../../model/toefl.model';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { Toefl } from '../../model/toefl-model/toefl.model';
 
 
 @Component({
@@ -18,11 +18,16 @@ export class InterToeflListPage {
     { src: 'assets/imgs/slide_3.jpg'}
  ];
  
-  constructor(public navCtrl: NavController, public navParams: NavParams)
-  {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public modalCtrl: ModalController) {
                 console.log( this.navParams.data );
-                this.interToefls = this.navParams.data;
+                this.interToefls = this.navParams.data; }
+
+  onToeflDetail(toeflItem) {
+                  console.log('click toefl detail..', toeflItem)
+                  let toeflDetail = this.modalCtrl.create('ToeflDetailPage', { toeflItem: toeflItem })
+                  toeflDetail.present();
   }
-
-
+  
 }

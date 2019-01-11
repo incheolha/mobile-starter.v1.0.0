@@ -8,7 +8,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from '../pages/model/auth-model/user.model';
 import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
-import { Toefl } from '../pages/model/toefl.model';
+import { Toefl } from '../pages/model/toefl-model/toefl.model';
 
 @Component({
   templateUrl: 'app.html',
@@ -163,4 +163,3 @@ export class MyApp implements OnInit, OnDestroy{
   }
 
 }
-

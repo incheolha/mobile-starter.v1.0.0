@@ -1,8 +1,8 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Toefl } from '../model/toefl.model';
+import { Toefl } from '../model/toefl-model/toefl.model';
 
 import { AllToeflListPage } from '../toefl-list/all-toefl-list/all-toefl-list';
 import { InterToeflListPage } from './../toefl-list/inter-toefl-list/inter-toefl-list';
@@ -12,7 +12,8 @@ import { AdvanceToeflListPage } from './../toefl-list/advance-toefl-list/advance
 
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { User } from '../model/auth-model/user.model';
-
+import { Subscription } from 'rxjs/Subscription';
+import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
 
 
 @IonicPage()

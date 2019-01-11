@@ -33,7 +33,6 @@ import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
   ],
   imports: [
     BrowserModule,
-
     HttpClientModule,
     IonAffixModule,
     FormsModule,

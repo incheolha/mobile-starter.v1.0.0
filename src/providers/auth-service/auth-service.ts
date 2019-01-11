@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { globalConstants } from '../../app/globalConstantsSetting/globalConstants';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
-import { Toefl } from '../../pages/model/toefl.model';
+import { Toefl } from '../../pages/model/toefl-model/toefl.model';
 
 
 @Injectable()

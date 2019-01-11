@@ -1,28 +1,30 @@
 
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Advanced Toefl Lists</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="goToSearch()">
-        <ion-icon name="ios-notifications-outline" style="zoom:1.5;"></ion-icon>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
       </button>
-      <button ion-button (click)="goToCart()">
-        <ion-icon name="ios-cart-outline" style="zoom:1.5;"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-  <ion-slides pager autoplay="2000">
-    <ion-slide *ngFor="let slide of slides">
-      <img src="{{ slide.src }}" alt="">
-    </ion-slide>
-  </ion-slides>
-</ion-header>
-<ion-content>
-  <ion-list no-lines padding>
-          <button ion-item *ngFor="let toeflItem of this.advToefl">
+      <ion-title>All Toefl Lists</ion-title>
+      <ion-buttons end>
+        <button ion-button (click)="goToSearch()">
+          <ion-icon name="ios-notifications-outline" style="zoom:1.5;"></ion-icon>
+        </button>
+        <button ion-button (click)="goToCart()">
+          <ion-icon name="ios-cart-outline" style="zoom:1.5;"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+    <ion-slides pager autoplay="2000">
+      <ion-slide *ngFor="let slide of slides">
+        <img src="{{ slide.src }}" alt="">
+      </ion-slide>
+    </ion-slides>
+  </ion-header>
+  <ion-content>
+  
+      <ion-list no-lines padding>
+  
+              <ion-item-sliding *ngFor="let toeflItem of advToefls" (click)="onToeflDetail(toeflItem)">
               <ion-item>
                 <ion-avatar item-start>
                   <img src={{toeflItem.toeflImage}}>
@@ -31,6 +33,17 @@
                 <p>{{ toeflItem.toeflDesc | shorten:50 }}</p>
                 <h3>{{ toeflItem.toeflCreatedDate | date }}</h3>
               </ion-item>
-            </button>
-  </ion-list>
-</ion-content>
+              <ion-item-options side="right">
+                <button ion-button color="favorite">
+                  <ion-icon name="ios-cart-outline"></ion-icon>
+                  Cart
+                </button>
+                <button ion-button color="primary">
+                  <ion-icon name="ios-cart-outline"></ion-icon>
+                  Buy
+                </button>
+              </ion-item-options>
+             </ion-item-sliding>
+      </ion-list>
+    </ion-content>
+  

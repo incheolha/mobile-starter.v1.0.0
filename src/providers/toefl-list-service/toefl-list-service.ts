@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 // import 'rxjs/add/operator/do';
 // import 'rxjs/add/operator/catch';
 import { Subject } from 'rxjs/Subject';
-import { Toefl } from '../../pages/model/toefl.model';
+import { Toefl } from '../../pages/model/toefl-model/toefl.model';
 import { globalConstants } from '../../app/globalConstantsSetting/globalConstants';
 
 @Injectable()
@@ -22,6 +22,7 @@ export class ToeflListServiceProvider {
   postToeflListsListener() {
     return this.toeflListChanged.asObservable();
   }
+  
   getAllToeflLists() {
     this.http.get<{ message: string, toefls: Toefl[]}>(globalConstants.httpURL +  '/showExam')
                   .subscribe((postToefls) => {

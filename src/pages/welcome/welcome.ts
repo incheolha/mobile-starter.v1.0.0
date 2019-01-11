@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
-import { Toefl } from '../model/toefl.model';
+import { Toefl } from '../model/toefl-model/toefl.model';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+
 @IonicPage()
 @Component({
   selector: 'page-welcome',
