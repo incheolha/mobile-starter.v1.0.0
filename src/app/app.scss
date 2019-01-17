@@ -281,10 +281,16 @@
     left: 0;
   }
 
-  .customToast {
+  .successToast {
      .toast-message 
       {
         text-align: center;
-        background: color($colors, danger) } 
+        background: color($colors, favorite) } 
 }
   
+  .errorToast {
+    .toast-message 
+    {
+      text-align: center;
+      background: color($colors, danger) } 
+  }

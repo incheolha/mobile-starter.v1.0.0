@@ -19,6 +19,8 @@ import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { HttpClientModule } from '@angular/common/http';
 import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
+import { ShoppingCartServiceProvider } from '../providers/shopping-cart-service/shopping-cart-service';
+import { UtiltiyServiceProvider } from '../providers/utiltiy-service/utiltiy-service';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ToeflListServiceProvider,
-    AuthServiceProvider
+    AuthServiceProvider,
+    ShoppingCartServiceProvider,
+    UtiltiyServiceProvider
 
   ]
 })
