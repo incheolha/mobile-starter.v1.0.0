@@ -282,15 +282,22 @@
   }
 
   .successToast {
-     .toast-message 
+     .toast-message
       {
         text-align: center;
-        background: color($colors, favorite) } 
+        background: color($colors, favorite) }
 }
-  
+
   .errorToast {
-    .toast-message 
+    .toast-message
     {
       text-align: center;
-      background: color($colors, danger) } 
+      background: color($colors, danger) }
+  }
+
+  .loginErrorToast {
+    .toast-message
+    {
+      text-align: center;
+      background: color($colors, orange) }
   }

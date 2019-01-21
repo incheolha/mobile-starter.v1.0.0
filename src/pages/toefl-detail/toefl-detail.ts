@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Toefl } from '../model/toefl-model/toefl.model';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { UtiltiyServiceProvider } from '../../providers/utiltiy-service/utiltiy-service';
 import { Shoppingcart } from '../model/payment-model/shoppingcart.model';
 import { ShoppingCartServiceProvider } from '../../providers/shopping-cart-service/shopping-cart-service';
 
@@ -18,36 +16,32 @@ import { ShoppingCartServiceProvider } from '../../providers/shopping-cart-servi
   selector: 'page-toefl-detail',
   templateUrl: 'toefl-detail.html',
 })
-export class ToeflDetailPage {
+export class ToeflDetailPage implements OnInit {
 
   toeflItem: Toefl;
   shoppingCart: Shoppingcart;
+  price = 10;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public toastCtrl: ToastController,
-              private authService: AuthServiceProvider,
               private shoppingCartService: ShoppingCartServiceProvider) {
-              this.toeflItem = this.navParams.data.toeflItem; 
-              console.log('인증 확인 모드', this.authService.isAuthenticated);
+
             }
 
- 
+  ngOnInit() {
+    this.toeflItem = this.navParams.data.toeflItem;
+  }
+
   addCart() {
     console.log('cart was tapped', this.toeflItem);
-
-        if(this.authService.isAuthenticated) {
           const cart = new Shoppingcart(this.toeflItem.toeflNo, this.toeflItem.toeflLevel, this.price);
           this.shoppingCartService.addShoppingCartList(cart);
-
-        } else {
-          this.navCtrl.push('LoginPage');
-        }
-
+          this.navCtrl.pop();
   }
 
  buy() {
   console.log('buy was tapped', this.toeflItem);
 
  }
+
 }

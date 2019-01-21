@@ -10,6 +10,7 @@
         <ion-icon name="ios-notifications-outline" style="zoom:1.5;"></ion-icon>
       </button>
       <button ion-button (click)="goToCart()">
+        <ion-badge *ngIf="shoppingCartLists.length > 0" class="badge" style="zoom:0.8;">{{ shoppingCartLists.length }}</ion-badge>
         <ion-icon name="ios-cart-outline" style="zoom:1.5;"></ion-icon>
       </button>
     </ion-buttons>
@@ -20,6 +21,9 @@
     </ion-slide>
   </ion-slides>
 </ion-header>
+
+
+
 <ion-content>
 
     <ion-list no-lines padding>
@@ -33,7 +37,7 @@
               <p>{{ toeflItem.toeflDesc | shorten:50 }}</p>
               <h3>{{ toeflItem.toeflCreatedDate | date }}</h3>
             </ion-item>
-            <ion-item-options side="right">
+            <ion-item-options *ngIf="isAuth" side="right">
               <button ion-button color="favorite">
                 <ion-icon name="ios-cart-outline"></ion-icon>
                 Cart

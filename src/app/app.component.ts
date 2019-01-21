@@ -3,12 +3,14 @@ import { Platform, ModalController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashPage } from '../pages/splash/splash';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from '../pages/model/auth-model/user.model';
 import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
 import { Toefl } from '../pages/model/toefl-model/toefl.model';
+import { ShoppingCartServiceProvider } from '../providers/shopping-cart-service/shopping-cart-service';
 
 @Component({
   templateUrl: 'app.html',
@@ -42,11 +44,15 @@ export class MyApp implements OnInit, OnDestroy{
               statusBar: StatusBar,
               modalController: ModalController,
               private authService: AuthServiceProvider,
+              private screenOrientation: ScreenOrientation,
+              private shoppingCartService: ShoppingCartServiceProvider,
               private toeflListsService: ToeflListServiceProvider) {
 
       platform.ready().then(() => {
                   this.rootPage = 'WelcomePage';                   //lazy loading 기법 채용
                   statusBar.styleDefault();
+                  console.log(this.screenOrientation.type);
+                  this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT); //스크린 방향을 protrait로 고정한다
                   let splash = modalController.create(SplashPage);
                   splash.present();
                 });
@@ -54,8 +60,30 @@ export class MyApp implements OnInit, OnDestroy{
   }
 
 
-  ngOnInit() {
+  getCurrentScreenOrientation() {
+    console.log(this.screenOrientation.type);
+  }
 
+  async lockScreenOrientation() {
+    try {
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  unlockScreenOrientation() {
+    this.screenOrientation.unlock();
+  }
+
+  observeScreenOrientation() {
+    this.screenOrientation.onChange()
+                          .subscribe(() => {
+                            console.log('this application orientation has chanaged');
+                          })
+  }
+  ngOnInit() {
 
     this.authStatusSub = this.authService.authChangeListener()
                                           .subscribe( (authStatus: boolean) => {
@@ -82,21 +110,6 @@ export class MyApp implements OnInit, OnDestroy{
                                                 .subscribe( (toeflLists: Toefl[]) => {
                                                   console.log( toeflLists );
                                                   this.toeflLists = toeflLists;
-
-                                                  if ( this.toeflLists.length !== 0 ) {
-                                                    for ( let toeflItem of this.toeflLists ) {
-                                                      if (toeflItem.toeflLevel === 'Beginner') {
-                                                            this.beginnerToeflLists.push(toeflItem);
-                                                      } else if (toeflItem. toeflLevel === 'Basic') {
-                                                            this.basicToeflLists.push(toeflItem)
-                                                      } else if (toeflItem.toeflLevel === 'InterMediate') {
-                                                            this.interToeflLists.push(toeflItem)
-                                                      } else if (toeflItem.toeflLevel === 'Advanced') {
-                                                            this.advToeflLists.push(toeflItem)
-                                                      }
-                                                    }
-                                                  }
-
                                                 })
 
   }
@@ -109,12 +122,7 @@ export class MyApp implements OnInit, OnDestroy{
   }
 
   goBackHome() {
-
-    this.nav.setRoot('HomePage', {allToefls: this.toeflLists,
-      beginnerToeflLists: this.beginnerToeflLists,
-      basicToeflLists: this.basicToeflLists,
-      interToeflLists: this.interToeflLists,
-      advToeflLists: this.advToeflLists});
+      this.nav.setRoot('HomePage', {allToefls: this.toeflLists});
 
   }
 
@@ -128,6 +136,7 @@ export class MyApp implements OnInit, OnDestroy{
 
   doLogout() {
     this.authService.isAuthenticated = false;
+    this.shoppingCartService.shoppingCartLists = [];
     this.nav.push('WelcomePage');
   }
 

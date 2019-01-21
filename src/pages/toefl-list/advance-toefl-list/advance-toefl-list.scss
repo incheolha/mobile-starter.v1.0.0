@@ -1,14 +1,19 @@
 page-advance-toefl-list {
 
+  ion-slides {
+    position: relative;
+    height: auto;
+  }
 
 .label {
     margin: 0 0 0 0;
   }
+
   .item {
     margin-top: 2px !important;
     padding: 4px !important;
     margin-bottom: 2px;
-  
+
   }
-  
+
 }

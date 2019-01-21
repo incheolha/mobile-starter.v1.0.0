@@ -55,4 +55,5 @@ export class WelcomePage implements OnInit, OnDestroy {
                                       currentLoginedUser: currentGuest,
                                       allToefls: this.toeflLists});
   }
+
 }

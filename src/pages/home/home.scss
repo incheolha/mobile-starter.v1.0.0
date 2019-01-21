@@ -1,8 +1,4 @@
-page-home,
-.home {
-  ion-slides {
-    height: auto;
-  }
+page-home {
 
   .cat-list {
     font-size: 0.8em;
@@ -38,6 +34,14 @@ page-home,
         }
       }
     }
+  }
+  .badge{
+    color: #fff;
+    background-color: red;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-radius: 100%;
   }
 
   .price {

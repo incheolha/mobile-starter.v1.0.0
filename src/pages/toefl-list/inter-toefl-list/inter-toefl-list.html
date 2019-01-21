@@ -1,29 +1,32 @@
 
 <ion-header>
-    <ion-navbar color="primary">
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Intermediate Toefl Lists</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToSearch()">
+        <ion-icon name="ios-notifications-outline" style="zoom:1.5;"></ion-icon>
       </button>
-      <ion-title>All Toefl Lists</ion-title>
-      <ion-buttons end>
-        <button ion-button (click)="goToSearch()">
-          <ion-icon name="ios-notifications-outline" style="zoom:1.5;"></ion-icon>
-        </button>
-        <button ion-button (click)="goToCart()">
-          <ion-icon name="ios-cart-outline" style="zoom:1.5;"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-navbar>
-    <ion-slides pager autoplay="2000">
-      <ion-slide *ngFor="let slide of slides">
-        <img src="{{ slide.src }}" alt="">
-      </ion-slide>
-    </ion-slides>
-  </ion-header>
+      <button ion-button (click)="goToCart()">
+        <ion-badge *ngIf="shoppingCartLists.length > 0" class="badge" style="zoom:0.8;">{{ shoppingCartLists.length }}</ion-badge>
+        <ion-icon name="ios-cart-outline" style="zoom:1.5;"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-slides pager autoplay="2000">
+    <ion-slide *ngFor="let slide of slides">
+      <img src="{{ slide.src }}" alt="">
+    </ion-slide>
+  </ion-slides>
+</ion-header>
+
+
   <ion-content>
-  
+
       <ion-list no-lines padding>
-  
+
               <ion-item-sliding *ngFor="let toeflItem of interToefls" (click)="onToeflDetail(toeflItem)">
               <ion-item>
                 <ion-avatar item-start>
@@ -33,7 +36,7 @@
                 <p>{{ toeflItem.toeflDesc | shorten:50 }}</p>
                 <h3>{{ toeflItem.toeflCreatedDate | date }}</h3>
               </ion-item>
-              <ion-item-options side="right">
+              <ion-item-options *ngIf="isAuth" side="right">
                 <button ion-button color="favorite">
                   <ion-icon name="ios-cart-outline"></ion-icon>
                   Cart
@@ -46,4 +49,3 @@
              </ion-item-sliding>
       </ion-list>
     </ion-content>
-  

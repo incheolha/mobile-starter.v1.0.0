@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonAffixModule } from 'ion-affix';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,6 +42,7 @@ import { UtiltiyServiceProvider } from '../providers/utiltiy-service/utiltiy-ser
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp,
                               {iconMode: 'ios',
+                                backButtonIcon: 'ios-arrow-back',
                                 tabHiglight: true,
                                 platforms: {
                                   android: {
@@ -63,12 +65,12 @@ import { UtiltiyServiceProvider } from '../providers/utiltiy-service/utiltiy-ser
   providers: [
     StatusBar,
     SplashScreen,
+    ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ToeflListServiceProvider,
     AuthServiceProvider,
     ShoppingCartServiceProvider,
     UtiltiyServiceProvider
-
   ]
 })
 export class AppModule {}
