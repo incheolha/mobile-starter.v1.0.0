@@ -1,35 +1,31 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController } from 'ionic-angular';
 import { Toefl } from '../model/toefl-model/toefl.model';
-import { Subscription } from 'rxjs/Subscription';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
   selector: 'page-welcome',
   templateUrl: 'welcome.html',
 })
-export class WelcomePage implements OnInit, OnDestroy {
+export class WelcomePage implements OnInit {
 
   toeflLists: Toefl[] = [];
-  postToeflListsSub: Subscription;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
               private authService: AuthServiceProvider,
-              private toeflExamService: ToeflListServiceProvider) {}
+              private storage: Storage ) {}
 
   ngOnInit(): void {
-    this.toeflExamService.getAllToeflLists();
 
-    this.postToeflListsSub = this.toeflExamService.postToeflListsListener()
-                                                  .subscribe( (toefls: Toefl[] ) => {
-                                                    console.log( toefls );
-                                                    this.toeflLists = toefls;
-                                                  })
+    this.storage.ready().then(()=> {
+      this.storage.get('toeflLists').then( data => {
+        console.log('저장소로 부터 추출한 토플리스트: ', data);
+        this.toeflLists =  data;
+      })
+    })
   }
-
 
   skipLoginPage() {
     this.authService.isAuthenticated = false;
@@ -42,10 +38,6 @@ export class WelcomePage implements OnInit, OnDestroy {
 
   register() {
     this.navCtrl.push('SignUpPage', {originalToefls: this.toeflLists});
-  }
-
-  ngOnDestroy() {
-    this.postToeflListsSub.unsubscribe();
   }
 
 

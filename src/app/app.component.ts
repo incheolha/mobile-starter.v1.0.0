@@ -11,6 +11,7 @@ import { User } from '../pages/model/auth-model/user.model';
 import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
 import { Toefl } from '../pages/model/toefl-model/toefl.model';
 import { ShoppingCartServiceProvider } from '../providers/shopping-cart-service/shopping-cart-service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html',
@@ -43,6 +44,7 @@ export class MyApp implements OnInit, OnDestroy{
   constructor(platform: Platform,
               statusBar: StatusBar,
               modalController: ModalController,
+              private storage: Storage,
               private authService: AuthServiceProvider,
               private screenOrientation: ScreenOrientation,
               private shoppingCartService: ShoppingCartServiceProvider,
@@ -51,8 +53,9 @@ export class MyApp implements OnInit, OnDestroy{
       platform.ready().then(() => {
                   this.rootPage = 'WelcomePage';                   //lazy loading 기법 채용
                   statusBar.styleDefault();
+                  this.toeflListsService.getAllToeflLists();
                   console.log(this.screenOrientation.type);
-                  this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT); //스크린 방향을 protrait로 고정한다
+        //          this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT); //스크린 방향을 protrait로 고정한다
                   let splash = modalController.create(SplashPage);
                   splash.present();
                 });
@@ -110,6 +113,13 @@ export class MyApp implements OnInit, OnDestroy{
                                                 .subscribe( (toeflLists: Toefl[]) => {
                                                   console.log( toeflLists );
                                                   this.toeflLists = toeflLists;
+
+                                  this.storage.ready().then(()=> {
+                                    this.storage.clear();
+                                    this.storage.set('toeflLists', this.toeflLists);
+                                  })
+
+
                                                 })
 
   }

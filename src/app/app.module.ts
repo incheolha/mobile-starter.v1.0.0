@@ -5,6 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { StatusBar } from '@ionic-native/status-bar';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -49,8 +50,8 @@ import { UtiltiyServiceProvider } from '../providers/utiltiy-service/utiltiy-ser
                                     tabsPlacement: 'top'
                                   }
                                 }
-                              })
-
+                              }),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

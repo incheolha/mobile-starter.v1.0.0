@@ -60,7 +60,6 @@ export class HomePage implements OnInit {
     };
 
     this.allToefls = this.navParams.data.allToefls;
-
       if ( this.allToefls.length !== 0 ) {
           for ( let toeflItem of this.allToefls ) {
                 if (toeflItem.toeflLevel === 'Beginner') {
