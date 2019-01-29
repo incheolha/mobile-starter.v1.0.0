@@ -54,12 +54,22 @@ export class HomePage implements OnInit {
 
     this.shoppingCartLists = this.shoppingCartService.getShoppingCartLists();
 
-    if (this.authService.isAuthenticated) {
-      this.currentLoginedUser = this.navParams.data.currentLoginedUser
-
-    };
+    // 사용자 인증이 사실이면 side menu에 존재하는 각종 menu에 영향을 주어야 하기때문에
+    // 두개의 subject를 사용하요 app.componet.ts의 OnInit()에 존재하는 authChange와
+    // currentLoginedUser 정보를 updated 한다.
 
     this.allToefls = this.navParams.data.allToefls;
+    console.log(this.authService.isAuthenticated);
+    if ( this.authService.isAuthenticated ) {
+
+          this.authService.authChange.next(true);
+          console.log(this.navParams.data.currentLoginedUser);
+          this.authService.loginedUser.next(this.navParams.data.currentLoginedUser);
+    } else {
+          this.authService.loginedUser.next(null);
+    }
+
+
       if ( this.allToefls.length !== 0 ) {
           for ( let toeflItem of this.allToefls ) {
                 if (toeflItem.toeflLevel === 'Beginner') {

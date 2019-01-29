@@ -4,6 +4,7 @@ import { Toefl } from '../../model/toefl-model/toefl.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../../model/auth-model/user.model';
 import { AuthServiceProvider } from '../../../providers/auth-service/auth-service';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -27,6 +28,7 @@ export class LoginPage implements OnInit {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private fb: FormBuilder,
+              private storage: Storage,
               private authService: AuthServiceProvider) {}
 
   ngOnInit() {
@@ -58,8 +60,18 @@ export class LoginPage implements OnInit {
                                    .subscribe( (result: any) => {
                                                 console.log( result )
                                                 this.postedUser = result.user;
-                                                localStorage.setItem('token', result.token);
-                                                localStorage.setItem('userName', result.user.name);
+
+                                                this.storage.ready().then(() => {
+
+                                                this.storage.set('authStatus', true).then( loginStatus => {
+                                                                console.log('인증상태', loginStatus);
+                                                              });
+
+                                                this.storage.set('token', result.token).then( token => {
+                                                                  });
+
+                                                })
+
                                                 this.authService.isAuthenticated = true;   //이놈은 SignUpPage영향을 주고
                                                 this.authService.authChange.next(true);    //요놈은 sidemenu에 있는 인증정보에 영향을 줌
                                                 this.authService.loginedUser.next(this.postedUser); //요놈은 sidemenu에 user정보를 제공함
@@ -81,6 +93,7 @@ export class LoginPage implements OnInit {
 
   moveHomePage() {
                    console.log('사용자 정보', this.postedUser);
+                   console.log(this.toeflLists);
                    this.navCtrl.setRoot('HomePage', {currentLoginedUser: this.postedUser,
                                                      allToefls: this.toeflLists
                                                     });

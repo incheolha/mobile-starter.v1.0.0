@@ -8,10 +8,9 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from '../pages/model/auth-model/user.model';
-import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
+
 import { Toefl } from '../pages/model/toefl-model/toefl.model';
 import { ShoppingCartServiceProvider } from '../providers/shopping-cart-service/shopping-cart-service';
-import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html',
@@ -27,7 +26,6 @@ export class MyApp implements OnInit, OnDestroy{
 
   private loginedUserSub: Subscription;
   private authStatusSub: Subscription;
-  private toeflListsSub: Subscription;
 
 
   toeflLists: Toefl[] = [];
@@ -44,19 +42,18 @@ export class MyApp implements OnInit, OnDestroy{
   constructor(platform: Platform,
               statusBar: StatusBar,
               modalController: ModalController,
-              private storage: Storage,
               private authService: AuthServiceProvider,
               private screenOrientation: ScreenOrientation,
-              private shoppingCartService: ShoppingCartServiceProvider,
-              private toeflListsService: ToeflListServiceProvider) {
+              private shoppingCartService: ShoppingCartServiceProvider) {
 
       platform.ready().then(() => {
-                  this.rootPage = 'WelcomePage';                   //lazy loading 기법 채용
+                                    //lazy loading 기법 채용
                   statusBar.styleDefault();
-                  this.toeflListsService.getAllToeflLists();
+
                   console.log(this.screenOrientation.type);
         //          this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT); //스크린 방향을 protrait로 고정한다
                   let splash = modalController.create(SplashPage);
+                  this.rootPage = 'WelcomePage';
                   splash.present();
                 });
 
@@ -92,35 +89,21 @@ export class MyApp implements OnInit, OnDestroy{
                                           .subscribe( (authStatus: boolean) => {
                                             console.log('app main에서 변화되는 subject', authStatus);
                                             this.currentAuthStatus = authStatus;
-                                            if(!this.currentAuthStatus) {
-                                              this.currentUserName = 'Guest';
-                                              this.currentUserEmail = 'Not Available'
-                                            }
+
                                           });
     this.loginedUserSub = this.authService.loginedUserListener()
                                           .subscribe( (loginedUser: User) => {
-                                            this.currentUser = loginedUser;
-                                            this.currentUserName = loginedUser.name;
-                                            if(!this.currentUserName) {
+
+                                            console.log(loginedUser);
+                                            if (!loginedUser) {
                                               this.currentUserName = 'Guest';
-                                            }
-                                            this.currentUserEmail = loginedUser.email;
-                                            if(!this.currentUserEmail) {
                                               this.currentUserEmail = 'Not Available';
+                                            } else {
+                                              this.currentUserName = loginedUser.name;
+                                              this.currentUserEmail = loginedUser.email;
                                             }
-                                          })
-    this.toeflListsSub = this.toeflListsService.postToeflListsListener()
-                                                .subscribe( (toeflLists: Toefl[]) => {
-                                                  console.log( toeflLists );
-                                                  this.toeflLists = toeflLists;
 
-                                  this.storage.ready().then(()=> {
-                                    this.storage.clear();
-                                    this.storage.set('toeflLists', this.toeflLists);
-                                  })
-
-
-                                                })
+                                          });
 
   }
   openProfile() {
@@ -178,7 +161,6 @@ export class MyApp implements OnInit, OnDestroy{
   ngOnDestroy() {
     this.loginedUserSub.unsubscribe();
     this.authStatusSub.unsubscribe();
-    this.toeflListsSub.unsubscribe();
   }
 
 }

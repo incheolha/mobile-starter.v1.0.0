@@ -11,8 +11,6 @@ import { globalConstants } from '../../app/globalConstantsSetting/globalConstant
 @Injectable()
 export class ToeflListServiceProvider {
 
-  private toefls: Toefl[] = [];
-
   public toeflListChanged = new Subject<Toefl[]>();
 
   constructor( public http: HttpClient ) {
@@ -22,15 +20,10 @@ export class ToeflListServiceProvider {
   postToeflListsListener() {
     return this.toeflListChanged.asObservable();
   }
-  
+
   getAllToeflLists() {
-    this.http.get<{ message: string, toefls: Toefl[]}>(globalConstants.httpURL +  '/showExam')
-                  .subscribe((postToefls) => {
-                    this.toefls = postToefls.toefls;
-                    this.toeflListChanged.next([...this.toefls]);
-                  },
-                    ( error ) => console.log(error)
-                  );
+    return this.http.get<{ message: string, toefls: Toefl[]}>(globalConstants.httpURL +  '/showExam');
+
   }
 
 // 구버젼 rxjs를 사용하여 정보를 가져오는방법
