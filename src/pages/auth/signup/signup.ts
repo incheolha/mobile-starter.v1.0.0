@@ -4,12 +4,7 @@ import { Toefl } from '../../model/toefl-model/toefl.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../../model/auth-model/user.model';
 import { AuthServiceProvider } from '../../../providers/auth-service/auth-service';
-
-
-/*
-
-
-*/
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -29,6 +24,7 @@ export class SignUpPage implements OnInit {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private fb: FormBuilder,
+              private storage: Storage,
               private authService: AuthServiceProvider) {}
 
   ngOnInit() {
@@ -61,14 +57,27 @@ export class SignUpPage implements OnInit {
                           this.signForm.value.name);
 
     this.authService.signUp(user).subscribe( (result: any) => {
-                                  console.log(result);
-                                  localStorage.setItem('token', result.token);
-                                  localStorage.setItem('userName', result.user.name);
-                                  this.signUser = result.user;
-                                  this.authService.isAuthenticated = true;   //이놈은 SignUpPage영향을 주고
-                                  this.authService.authChange.next(true);    //요놈은 sidemenu에 있는 인증정보에 영향을 줌
-                                  this.authService.loginedUser.next(this.signUser); // 이놈은 Sidemenu 동시에 영향을 준다
-                                  this.moveHomePage();
+                                    console.log( result )
+                                    this.signUser = result.user;
+
+                                    this.storage.ready().then(() => {
+
+                                              this.storage.set('authStatus', true).then( loginStatus => {
+                                                              console.log('인증상태', loginStatus);
+                                                            });
+
+                                              this.storage.set('token', result.token).then( token => {
+                                                                });
+
+                                    })
+
+                                    this.authService.isAuthenticated = true;   //이놈은 SignUpPage영향을 주고
+                                    this.authService.authChange.next(true);    //요놈은 sidemenu에 있는 인증정보에 영향을 줌
+                                    this.authService.loginedUser.next(this.signUser); //요놈은 sidemenu에 user정보를 제공함
+
+                                    this.moveHomePage()
+
+
                                   },
                                   error => {
                                     console.log('에러 메세지', error)

@@ -1,5 +1,7 @@
 import { Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { Platform, ModalController} from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashPage } from '../pages/splash/splash';
@@ -11,6 +13,7 @@ import { User } from '../pages/model/auth-model/user.model';
 
 import { Toefl } from '../pages/model/toefl-model/toefl.model';
 import { ShoppingCartServiceProvider } from '../providers/shopping-cart-service/shopping-cart-service';
+import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
 
 @Component({
   templateUrl: 'app.html',
@@ -26,13 +29,9 @@ export class MyApp implements OnInit, OnDestroy{
 
   private loginedUserSub: Subscription;
   private authStatusSub: Subscription;
-
+  private toeflListsSub: Subscription;
 
   toeflLists: Toefl[] = [];
-  beginnerToeflLists: Toefl[] = [];
-  basicToeflLists: Toefl[] = [];
-  interToeflLists: Toefl[] = [];
-  advToeflLists: Toefl[] = [];
 
   currentUserName: string = '';
   currentUserEmail: string = '';
@@ -42,18 +41,19 @@ export class MyApp implements OnInit, OnDestroy{
   constructor(platform: Platform,
               statusBar: StatusBar,
               modalController: ModalController,
+              private storage: Storage,
               private authService: AuthServiceProvider,
+              private toeflListsService: ToeflListServiceProvider,
               private screenOrientation: ScreenOrientation,
               private shoppingCartService: ShoppingCartServiceProvider) {
 
       platform.ready().then(() => {
-                                    //lazy loading 기법 채용
+                  this.rootPage = 'WelcomePage';             //lazy loading 기법 채용
                   statusBar.styleDefault();
-
                   console.log(this.screenOrientation.type);
-        //          this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT); //스크린 방향을 protrait로 고정한다
+                  this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT); //스크린 방향을 protrait로 고정한다
                   let splash = modalController.create(SplashPage);
-                  this.rootPage = 'WelcomePage';
+
                   splash.present();
                 });
 
@@ -85,16 +85,20 @@ export class MyApp implements OnInit, OnDestroy{
   }
   ngOnInit() {
 
+    // 사용자가 로그인후 인증상태 변화를 updated해준다
     this.authStatusSub = this.authService.authChangeListener()
                                           .subscribe( (authStatus: boolean) => {
                                             console.log('app main에서 변화되는 subject', authStatus);
                                             this.currentAuthStatus = authStatus;
 
                                           });
+    //사용자가 인증후 사용자 프로파일에서 사용할 정보를 update한다
     this.loginedUserSub = this.authService.loginedUserListener()
                                           .subscribe( (loginedUser: User) => {
 
                                             console.log(loginedUser);
+                                            this.currentUser = loginedUser;
+
                                             if (!loginedUser) {
                                               this.currentUserName = 'Guest';
                                               this.currentUserEmail = 'Not Available';
@@ -102,20 +106,25 @@ export class MyApp implements OnInit, OnDestroy{
                                               this.currentUserName = loginedUser.name;
                                               this.currentUserEmail = loginedUser.email;
                                             }
-
                                           });
+
+    this.toeflListsSub = this.toeflListsService.postToeflListsListener()
+                                               .subscribe( (postedToeflLists: Toefl[]) => {
+                                                 console.log( postedToeflLists );
+                                                 this.toeflLists = postedToeflLists;
+                                               } )
 
   }
   openProfile() {
     console.log('open profile clicked');
-
+    console.log(this.currentUser);
     this.nav.push('UserProfilePage', {currentUser: this.currentUser,
                                       currentAuthStatus: this.currentAuthStatus
                                       });
   }
 
   goBackHome() {
-      this.nav.setRoot('HomePage', {allToefls: this.toeflLists});
+      this.nav.setRoot('HomePage', {currentLoginedUser: this.currentUser, allToefls: this.toeflLists});
 
   }
 
@@ -130,6 +139,11 @@ export class MyApp implements OnInit, OnDestroy{
   doLogout() {
     this.authService.isAuthenticated = false;
     this.shoppingCartService.shoppingCartLists = [];
+    this.storage.ready().then( () => {
+      this.storage.clear().then( () => {
+        console.log( '저장소가 청소되었습니다..')
+      })
+    })
     this.nav.push('WelcomePage');
   }
 
@@ -161,6 +175,7 @@ export class MyApp implements OnInit, OnDestroy{
   ngOnDestroy() {
     this.loginedUserSub.unsubscribe();
     this.authStatusSub.unsubscribe();
+    this.toeflListsSub.unsubscribe();
   }
 
 }

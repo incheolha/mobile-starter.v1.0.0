@@ -31,11 +31,13 @@ export class WelcomePage implements OnInit {
 
       if (data) {
         this.toeflLists =  data;
+        this.toeflListsService.toeflListChanged.next(this.toeflLists);
       } else {
         this.toeflListsService.getAllToeflLists()
                               .subscribe((postToefls) => {
                                 this.toeflLists = postToefls.toefls;
                                 console.log(this.toeflLists);
+                                this.toeflListsService.toeflListChanged.next(this.toeflLists);
                                 this.storage.set('toeflLists', this.toeflLists);
                               },
                                 ( error ) => console.log(error)

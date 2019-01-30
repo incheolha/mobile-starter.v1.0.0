@@ -60,15 +60,16 @@ export class HomePage implements OnInit {
 
     this.allToefls = this.navParams.data.allToefls;
     console.log(this.authService.isAuthenticated);
+
     if ( this.authService.isAuthenticated ) {
 
           this.authService.authChange.next(true);
           console.log(this.navParams.data.currentLoginedUser);
           this.authService.loginedUser.next(this.navParams.data.currentLoginedUser);
     } else {
+          this.authService.authChange.next(false);
           this.authService.loginedUser.next(null);
     }
-
 
       if ( this.allToefls.length !== 0 ) {
           for ( let toeflItem of this.allToefls ) {
