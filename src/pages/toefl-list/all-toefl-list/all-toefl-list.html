@@ -24,6 +24,10 @@
 
 <ion-content>
 
+  <ion-refresher (ionRefresh)="forceReload($event)">
+    <ion-refresher-content refreshingText="Reload from Toefl List API....">
+    </ion-refresher-content>
+  </ion-refresher>
     <ion-list no-lines padding>
 
             <ion-item-sliding *ngFor="let toeflItem of allToefls" (click)="onToeflDetail(toeflItem)">

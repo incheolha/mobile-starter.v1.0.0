@@ -2,8 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Toefl } from '../model/toefl-model/toefl.model';
-
 import { AllToeflListPage } from '../toefl-list/all-toefl-list/all-toefl-list';
 import { InterToeflListPage } from './../toefl-list/inter-toefl-list/inter-toefl-list';
 import { BeginnerToeflListPage } from './../toefl-list/beginner-toefl-list/beginner-toefl-list';
@@ -11,9 +9,11 @@ import { BasicToeflListPage } from './../toefl-list/basic-toefl-list/basic-toefl
 import { AdvanceToeflListPage } from './../toefl-list/advance-toefl-list/advance-toefl-list';
 
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { User } from '../model/auth-model/user.model';
 import { ShoppingCartServiceProvider } from '../../providers/shopping-cart-service/shopping-cart-service';
 import { Shoppingcart } from '../model/payment-model/shoppingcart.model';
+
+import { User } from '../model/auth-model/user.model';
+import { Toefl } from '../model/toefl-model/toefl.model';
 
 @IonicPage()
 @Component({
@@ -59,12 +59,12 @@ export class HomePage implements OnInit {
     // currentLoginedUser 정보를 updated 한다.
 
     this.allToefls = this.navParams.data.allToefls;
+
     console.log(this.authService.isAuthenticated);
 
     if ( this.authService.isAuthenticated ) {
 
           this.authService.authChange.next(true);
-          console.log(this.navParams.data.currentLoginedUser);
           this.authService.loginedUser.next(this.navParams.data.currentLoginedUser);
     } else {
           this.authService.authChange.next(false);
@@ -86,6 +86,5 @@ export class HomePage implements OnInit {
       }
 
   }
-
 
 }

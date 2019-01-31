@@ -5,6 +5,7 @@ import { AuthServiceProvider } from '../../../providers/auth-service/auth-servic
 import { UtiltiyServiceProvider } from '../../../providers/utiltiy-service/utiltiy-service';
 import { Shoppingcart } from '../../model/payment-model/shoppingcart.model';
 import { ShoppingCartServiceProvider } from '../../../providers/shopping-cart-service/shopping-cart-service';
+import { ToeflListServiceProvider } from '../../../providers/toefl-list-service/toefl-list-service';
 
 @Component({
   selector: 'page-all-toefl-list',
@@ -27,6 +28,7 @@ export class AllToeflListPage {
               public navParams: NavParams,
               public modalCtrl: ModalController,
               private authService: AuthServiceProvider,
+              private toeflListsService: ToeflListServiceProvider,
               private shoppingCartService: ShoppingCartServiceProvider,
               private utilityService: UtiltiyServiceProvider) {
 
@@ -57,5 +59,13 @@ export class AllToeflListPage {
 goToCart() {
   console.log('tapped shopping cart..', this.shoppingCartLists);
   this.navCtrl.push('ShoppingCartPage', {shoppingCartLists: this.shoppingCartLists});
+}
+
+invalidatedCache() {
+  this.toeflListsService.cacheInvalidateService();
+}
+
+forceReload(refrescher) {
+  this.toeflListsService.forceToReresher(refrescher);
 }
 }

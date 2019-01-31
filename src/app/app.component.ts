@@ -1,17 +1,19 @@
 import { Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { Platform, ModalController} from 'ionic-angular';
+
 import { Storage } from '@ionic/storage';
+import { CacheService } from 'ionic-cache';
 
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { SplashPage } from '../pages/splash/splash';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
-import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { Subscription } from 'rxjs/Subscription';
-import { User } from '../pages/model/auth-model/user.model';
 
+import { User } from '../pages/model/auth-model/user.model';
 import { Toefl } from '../pages/model/toefl-model/toefl.model';
+
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ShoppingCartServiceProvider } from '../providers/shopping-cart-service/shopping-cart-service';
 import { ToeflListServiceProvider } from '../providers/toefl-list-service/toefl-list-service';
 
@@ -36,22 +38,27 @@ export class MyApp implements OnInit, OnDestroy{
   currentUserName: string = '';
   currentUserEmail: string = '';
   currentUser: User;
+
   currentAuthStatus: boolean;
 
   constructor(platform: Platform,
               statusBar: StatusBar,
               modalController: ModalController,
               private storage: Storage,
+              private cache: CacheService,
               private authService: AuthServiceProvider,
               private toeflListsService: ToeflListServiceProvider,
               private screenOrientation: ScreenOrientation,
               private shoppingCartService: ShoppingCartServiceProvider) {
 
       platform.ready().then(() => {
-                  this.rootPage = 'WelcomePage';             //lazy loading 기법 채용
+                  this.rootPage = 'WelcomePage';               //lazy loading 기법 채용
+                  this.cache.setDefaultTTL( 60 * 60 * 12 );    // 12시간을 기본값으로 cache ttl을 설정함
+                  this.cache.setOfflineInvalidate(false);      // network down 시 cache모드를 작동시킴
+
                   statusBar.styleDefault();
                   console.log(this.screenOrientation.type);
-                  this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT); //스크린 방향을 protrait로 고정한다
+  //              this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT); //스크린 방향을 protrait로 고정한다
                   let splash = modalController.create(SplashPage);
 
                   splash.present();
@@ -84,7 +91,6 @@ export class MyApp implements OnInit, OnDestroy{
                           })
   }
   ngOnInit() {
-
     // 사용자가 로그인후 인증상태 변화를 updated해준다
     this.authStatusSub = this.authService.authChangeListener()
                                           .subscribe( (authStatus: boolean) => {
@@ -109,15 +115,13 @@ export class MyApp implements OnInit, OnDestroy{
                                           });
 
     this.toeflListsSub = this.toeflListsService.postToeflListsListener()
-                                               .subscribe( (postedToeflLists: Toefl[]) => {
-                                                 console.log( postedToeflLists );
-                                                 this.toeflLists = postedToeflLists;
+                                               .subscribe( (updatedToeflLists: Toefl[]) => {
+                                                 console.log( updatedToeflLists );
+                                                 this.toeflLists = updatedToeflLists;
                                                } )
 
   }
   openProfile() {
-    console.log('open profile clicked');
-    console.log(this.currentUser);
     this.nav.push('UserProfilePage', {currentUser: this.currentUser,
                                       currentAuthStatus: this.currentAuthStatus
                                       });
@@ -137,13 +141,13 @@ export class MyApp implements OnInit, OnDestroy{
   }
 
   doLogout() {
-    this.authService.isAuthenticated = false;
-    this.shoppingCartService.shoppingCartLists = [];
-    this.storage.ready().then( () => {
-      this.storage.clear().then( () => {
-        console.log( '저장소가 청소되었습니다..')
-      })
-    })
+    this.authService.isAuthenticated = false;             // 인증상태 초기화
+    this.shoppingCartService.shoppingCartLists = [];      // shopping cart lists 초기화
+    this.toeflListsService.cacheInvalidateService();      // toefl lists cached 초기화
+    this.storage.ready().then( () => {                    // ionic storage 최기화
+                        this.storage.clear().then( () => {
+                        console.log( '저장소가 청소되었습니다..'); });
+                  })
     this.nav.push('WelcomePage');
   }
 
@@ -173,9 +177,9 @@ export class MyApp implements OnInit, OnDestroy{
   }
 
   ngOnDestroy() {
-    this.loginedUserSub.unsubscribe();
-    this.authStatusSub.unsubscribe();
-    this.toeflListsSub.unsubscribe();
+                this.loginedUserSub.unsubscribe();
+                this.authStatusSub.unsubscribe();
+                this.toeflListsSub.unsubscribe();
   }
 
 }

@@ -300,4 +300,12 @@
     {
       text-align: center;
       background: color($colors, orange) }
+
+
+  .apiRequestToast {
+    .toast-message
+    {
+      text-align: center;
+      background: color($colors, gray) }
   }
+}

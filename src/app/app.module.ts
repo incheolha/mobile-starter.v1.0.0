@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
-
+import { CacheModule } from 'ionic-cache';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
@@ -41,6 +41,8 @@ import { UtiltiyServiceProvider } from '../providers/utiltiy-service/utiltiy-ser
     IonAffixModule,
     FormsModule,
     ReactiveFormsModule,
+    IonicStorageModule.forRoot(),
+    CacheModule.forRoot(),
     IonicModule.forRoot(MyApp,
                               {iconMode: 'ios',
                                 backButtonIcon: 'ios-arrow-back',
@@ -50,8 +52,7 @@ import { UtiltiyServiceProvider } from '../providers/utiltiy-service/utiltiy-ser
                                     tabsPlacement: 'top'
                                   }
                                 }
-                              }),
-    IonicStorageModule.forRoot()
+                              })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

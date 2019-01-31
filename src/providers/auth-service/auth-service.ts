@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../pages/model/auth-model/user.model';
-import { HttpClient } from '@angular/common/http';
 import { globalConstants } from '../../app/globalConstantsSetting/globalConstants';
-import { Subject } from 'rxjs/Subject';
+
+import { User } from '../../pages/model/auth-model/user.model';
 import { Toefl } from '../../pages/model/toefl-model/toefl.model';
+
+import { HttpClient } from '@angular/common/http';
+
+import { Subject } from 'rxjs/Subject';
 
 
 @Injectable()
 export class AuthServiceProvider {
 
-
   toeflLists: Toefl[] = [];
 
   urlConfig = globalConstants.httpURL;
+
   user: User;
   currentUserInfo: User;
 
@@ -34,8 +37,7 @@ loginedUserListener() {
 signUp(user: User) {
   return this.http.post< { message: string,
                            token: string,
-                           usr: User }>
-                      (this.urlConfig + '/user/signup', user)
+                           usr: User }> (this.urlConfig + '/user/signup', user);
 
 }
 
@@ -43,8 +45,7 @@ login(user: User) {
 
   return this.http.post< { message: string,
                            token: string,
-                           user: User }>
-            (this.urlConfig + '/user/login', user)
+                           user: User }> (this.urlConfig + '/user/login', user);
 
 }
 
@@ -55,4 +56,5 @@ login(user: User) {
 getCurrentUser(token: string) {
   return this.http.get<{ user: User }>(this.urlConfig + '/user/getUserInfo/' + '?token=' + token);
   }
+
 }

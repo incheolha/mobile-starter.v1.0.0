@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { Toefl } from '../model/toefl-model/toefl.model';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Storage } from '@ionic/storage';
-import { User } from '../model/auth-model/user.model';
-import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
+
 import { Subscription } from 'rxjs/Subscription';
+
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toefl-list-service';
+
+import { User } from '../model/auth-model/user.model';
+import { Toefl } from '../model/toefl-model/toefl.model';
 
 @IonicPage()
 @Component({
   selector: 'page-welcome',
   templateUrl: 'welcome.html',
 })
-export class WelcomePage implements OnInit {
+export class WelcomePage implements OnInit, OnDestroy {
 
   toeflLists: Toefl[] = [];
   currentLoginUser: User;
@@ -26,46 +29,35 @@ export class WelcomePage implements OnInit {
   ngOnInit(): void {
 
 
-    this.storage.get('toeflLists').then( data => {
-      console.log( data );
+    this.toeflListsService.getAllToeflLists();
 
-      if (data) {
-        this.toeflLists =  data;
-        this.toeflListsService.toeflListChanged.next(this.toeflLists);
-      } else {
-        this.toeflListsService.getAllToeflLists()
-                              .subscribe((postToefls) => {
-                                this.toeflLists = postToefls.toefls;
-                                console.log(this.toeflLists);
-                                this.toeflListsService.toeflListChanged.next(this.toeflLists);
-                                this.storage.set('toeflLists', this.toeflLists);
-                              },
-                                ( error ) => console.log(error)
-                              );
-      }
-      });
+    // cache 서비스를 사용하려면 반드시 toefl list가 updated가 되고난 후에 promise 방식으로 정보를 가지고 와야한다.
+    this.toeflListsSub = this.toeflListsService.postToeflListsListener().subscribe( (updatedToeflLists) => {
 
-    this.storage.get('authStatus').then( authStatus => {
-                                          if (authStatus) {
-                                            console.log(authStatus);
-                                            this.authService.isAuthenticated = true;
-                                          }
-                                  });
+                                this.toeflLists = updatedToeflLists;     // cache에 저장된 정보를 가져온다
 
-    this.storage.get('token').then( token => {
-                              if (token) {
-                                    this.authService.getCurrentUser(token).subscribe( (result) => {
-                                                                                        console.log(result);
-                                                                                        this.currentLoginUser = result.user;
-                                                                                        this.moveHomePage();
-                                                                                      },
-                                                                                        (error) => console.log(error)                              // 나중에 이 error는 alert로 처리한다
-                                                                                    );
-                                }
-                              });
+                                this.storage.get('authStatus').then( authStatus => {
+                                                  if (authStatus) {
+                                                    console.log(authStatus);
+                                                    this.authService.isAuthenticated = true;
+                                                  }
+                                                });
+
+                                this.storage.get('token').then( token => {
+                                                  if (token) {
+                                                        this.authService.getCurrentUser(token).subscribe( (result) => {
+                                                                                                            console.log(result);
+                                                                                                            this.currentLoginUser = result.user;
+                                                                                                            this.moveHomePage();
+                                                                                                          },
+                                                                                                            (error) => console.log(error)                              // 나중에 이 error는 alert로 처리한다
+                                                                                                        );
+                                                    }
+                                                  });
+
+    })
 
   }
-
 
   skipLoginPage() {
                     this.authService.isAuthenticated = false;
@@ -81,11 +73,12 @@ export class WelcomePage implements OnInit {
     this.navCtrl.push('SignUpPage', {originalToefls: this.toeflLists});
   }
 
-
   moveHomePage() {
-
     this.navCtrl.setRoot('HomePage', { currentLoginedUser: this.currentLoginUser, allToefls: this.toeflLists });
   }
 
+  ngOnDestroy() {
+    this.toeflListsSub.unsubscribe();
+  }
 
 }
