@@ -10,6 +10,7 @@ import { CacheModule } from 'ionic-cache';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { SplashPage } from '../pages/splash/splash';
 import { AdvanceToeflListPage } from '../pages/toefl-list/advance-toefl-list/advance-toefl-list';
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShortenPipe } from '../pages/shared/pipe-collection/shorthen-pipe';
 import { ShoppingCartServiceProvider } from '../providers/shopping-cart-service/shopping-cart-service';
 import { UtiltiyServiceProvider } from '../providers/utiltiy-service/utiltiy-service';
+import { SocalLoginServiceProvider } from '../providers/socal-login-service/socal-login-service';
 
 @NgModule({
   declarations: [
@@ -68,11 +70,13 @@ import { UtiltiyServiceProvider } from '../providers/utiltiy-service/utiltiy-ser
     StatusBar,
     SplashScreen,
     ScreenOrientation,
+    GooglePlus,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ToeflListServiceProvider,
     AuthServiceProvider,
     ShoppingCartServiceProvider,
-    UtiltiyServiceProvider
+    UtiltiyServiceProvider,
+    SocalLoginServiceProvider
   ]
 })
 export class AppModule {}

@@ -9,6 +9,7 @@ import { ToeflListServiceProvider } from '../../providers/toefl-list-service/toe
 
 import { User } from '../model/auth-model/user.model';
 import { Toefl } from '../model/toefl-model/toefl.model';
+import { SocalLoginServiceProvider } from '../../providers/socal-login-service/socal-login-service';
 
 @IonicPage()
 @Component({
@@ -24,6 +25,7 @@ export class WelcomePage implements OnInit, OnDestroy {
   constructor(public navCtrl: NavController,
               private authService: AuthServiceProvider,
               private toeflListsService: ToeflListServiceProvider,
+              private socialLoginservice: SocalLoginServiceProvider,
               private storage: Storage ) {}
 
   ngOnInit(): void {
@@ -73,6 +75,19 @@ export class WelcomePage implements OnInit, OnDestroy {
     this.navCtrl.push('SignUpPage', {originalToefls: this.toeflLists});
   }
 
+  loginWithGoogle() {
+    this.socialLoginservice.googleLogin().then((result) => {
+                console.log('result', JSON.stringify(result));
+                console.log( result.accessToken);
+                console.log( result.email);
+                console.log( result.displayName);
+                console.log( result.userId);
+                console.log( result.givenName);
+                console.log( result.imageUrl);
+      }).catch((err) => {
+            console.log( '에러 발생 지역', err );
+      });
+  }
   moveHomePage() {
     this.navCtrl.setRoot('HomePage', { currentLoginedUser: this.currentLoginUser, allToefls: this.toeflLists });
   }

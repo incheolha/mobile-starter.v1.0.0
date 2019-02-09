@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "427231965425",
+    "firebase_url": "https://examsimv100-8a063.firebaseio.com",
+    "project_id": "examsimv100-8a063",
+    "storage_bucket": "examsimv100-8a063.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427231965425:android:0ffd1bb8e71fbfb0",
+        "android_client_info": {
+          "package_name": "com.herokuapp.examsimv100"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427231965425-758g4ul3rq8l5otuh8rj1j9e45rucvga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.herokuapp.examsimv100",
+            "certificate_hash": "a43645abd710f0059a1273e7d3f7741893fcd9e8"
+          }
+        },
+        {
+          "client_id": "427231965425-vm5q3b8nhki1n7l5r6grseicif767jtd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR7Ds53hVfsA9S_-jN5P7kf74bFAMAmGE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427231965425-vm5q3b8nhki1n7l5r6grseicif767jtd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "427231965425-6iphf10evor1qj3f40hqgh26i3s21p9k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.herokuapp.examsimv100"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
