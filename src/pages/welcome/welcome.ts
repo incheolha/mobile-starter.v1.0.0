@@ -21,6 +21,7 @@ export class WelcomePage implements OnInit, OnDestroy {
   toeflLists: Toefl[] = [];
   currentLoginUser: User;
   toeflListsSub: Subscription;
+  facebookLogin = 'facebook';
 
   constructor(public navCtrl: NavController,
               private authService: AuthServiceProvider,
@@ -88,6 +89,39 @@ export class WelcomePage implements OnInit, OnDestroy {
             console.log( '에러 발생 지역', err );
       });
   }
+  loginWithFacebook() {
+    this.socialLoginservice.facebookGetLoginStatus()
+        .then( data => {
+          if (data.status === 'connected') {
+            console.log('It is already logged in', data);
+            this.getUserProfile();
+          } else {
+            console.log('It is not logged in');
+            this.socialLoginservice.facebookLogin()
+                                   .then( result => {
+                                     this.getUserProfile()
+                                   })
+                                   .catch( err => { console.log( err )});
+          }
+        })
+        .catch( error => { console.log( error )});
+
+  }
+
+  getUserProfile() {
+    this.socialLoginservice.facebookGetUserProfile()
+        .then ( profile => {
+          console.log(profile['id']);
+          console.log(profile['name']);
+          console.log(profile['email']);
+          console.log(profile['picture_large']['data']['url']
+          );
+
+        })
+  }
+
+
+
   moveHomePage() {
     this.navCtrl.setRoot('HomePage', { currentLoginedUser: this.currentLoginUser, allToefls: this.toeflLists });
   }

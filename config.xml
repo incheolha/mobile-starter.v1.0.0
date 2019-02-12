@@ -86,9 +86,14 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
+    <plugin name="cordova-plugin-facebook4" spec="^4.2.0">
+        <variable name="APP_ID" value="370558780408327" />
+        <variable name="APP_NAME" value="ExamsimV100" />
+        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
+        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
+    </plugin>
     <plugin name="cordova-plugin-googleplus" spec="~7.0.0">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.427231965425-6iphf10evor1qj3f40hqgh26i3s21p9k" />
     </plugin>
     <engine name="ios" spec="4.5.5" />
-    <engine name="android" spec="7.0.0" />
 </widget>

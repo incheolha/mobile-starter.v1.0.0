@@ -24,15 +24,17 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/core": "~4.10.0",
+    "@ionic-native/facebook": "^4.12.2",
     "@ionic-native/google-plus": "^4.12.2",
     "@ionic-native/screen-orientation": "^4.19.0",
     "@ionic-native/splash-screen": "~4.10.0",
     "@ionic-native/status-bar": "~4.10.0",
     "@ionic/storage": "^2.1.3",
     "animate.css": "^3.6.1",
-    "cordova-android": "7.0.0",
     "cordova-ios": "4.5.5",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-facebook4": "^4.2.0",
+    "cordova-plugin-googleplus": "~7.0.0",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^2.3.1",
     "cordova-plugin-screen-orientation": "^3.0.1",
@@ -45,8 +47,7 @@
     "ionicons": "3.0.0",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26",
-    "cordova-plugin-googleplus": "~7.0.0"
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.11",
@@ -65,11 +66,16 @@
       "cordova-plugin-screen-orientation": {},
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.427231965425-6iphf10evor1qj3f40hqgh26i3s21p9k"
+      },
+      "cordova-plugin-facebook4": {
+        "APP_ID": "370558780408327",
+        "APP_NAME": "ExamsimV100",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0"
       }
     },
     "platforms": [
-      "ios",
-      "android"
+      "ios"
     ]
   }
 }

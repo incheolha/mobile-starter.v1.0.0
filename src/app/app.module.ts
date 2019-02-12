@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook } from '@ionic-native/facebook';
 
 import { SplashPage } from '../pages/splash/splash';
 import { AdvanceToeflListPage } from '../pages/toefl-list/advance-toefl-list/advance-toefl-list';
@@ -71,6 +72,7 @@ import { SocalLoginServiceProvider } from '../providers/socal-login-service/soca
     SplashScreen,
     ScreenOrientation,
     GooglePlus,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ToeflListServiceProvider,
     AuthServiceProvider,
